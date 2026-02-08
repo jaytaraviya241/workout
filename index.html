@@ -3,599 +3,841 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jensi's Glow Up Protocol</title>
+    <title>Jensi's Wellness Journey</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
     <style>
-        :root {
-            --bg: #FAFAF9;
-            --surface: #FFFFFF;
-            --primary: #57534E;
-            --accent: #A8A29E;
-            --highlight: #D6D3D1;
-            --green: #4ade80;
-            --rose: #fda4af;
-            --blue-soft: #e0f2fe;
-            --blue-dark: #0284c7;
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --bg: #fafafa;
+            --surface: #ffffff;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+        }
 
         body {
-            background-color: var(--bg);
-            color: var(--primary);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #faf5ff 0%, #fef3c7 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
         }
 
-        h1, h2, h3, h4, h5 {
-            font-family: 'Playfair Display', serif;
+        h1, h2, h3, h4 {
+            font-family: 'Crimson Pro', serif;
+            font-weight: 600;
+            line-height: 1.2;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 2rem 1.5rem;
         }
 
-        /* HERO SECTION */
+        /* HEADER */
         header {
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             text-align: center;
-            opacity: 0;
-            animation: fadeIn 1.5s ease forwards;
+            padding: 4rem 0 3rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(245, 158, 11, 0.1));
+            border-radius: 30px;
+            margin-bottom: 3rem;
         }
 
         h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            line-height: 1;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 1rem;
         }
 
         .subtitle {
-            font-size: 1.25rem;
-            color: var(--accent);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-weight: 500;
         }
 
-        .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            animation: bounce 2s infinite;
-        }
-
-        /* SECTIONS */
-        section {
-            margin: 6rem 0;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-        
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .section-title {
-            font-size: 2.5rem;
+        /* GOAL CARDS */
+        .goals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
             margin-bottom: 3rem;
-            text-align: center;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 2px;
-            background: var(--primary);
         }
 
-        /* CARDS */
-        .card {
+        .goal-card {
             background: var(--surface);
             padding: 2rem;
             border-radius: 20px;
-            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
-            border: 1px solid rgba(0,0,0,0.02);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid var(--border);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .goal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.15);
         }
 
-        .tag {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.75rem;
-            padding: 4px 12px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 700;
-        }
-        
-        .tag-face { background: #ffe4e6; color: #be123c; }
-        .tag-body { background: #dcfce7; color: #15803d; }
-        .tag-diet { background: #fef9c3; color: #a16207; }
-
-        ul { list-style: none; }
-        li {
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: flex-start;
-            color: #44403C;
-            line-height: 1.6;
-        }
-        
-        li::before {
-            content: '•';
-            color: var(--accent);
-            margin-right: 12px;
-            font-weight: bold;
-        }
-
-        /* TIMELINE */
-        .timeline-item {
-            display: flex;
-            gap: 2rem;
-            padding-bottom: 3rem;
-            border-left: 1px solid var(--highlight);
-            padding-left: 2rem;
-            position: relative;
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -5px;
-            top: 0;
-            width: 9px;
-            height: 9px;
-            background: var(--primary);
-            border-radius: 50%;
-        }
-
-        .time {
-            font-weight: 700;
-            min-width: 80px;
-            color: var(--accent);
-            font-size: 0.9rem;
-        }
-
-        /* ANIMATIONS */
-        @keyframes fadeIn { to { opacity: 1; } }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
-
-        /* CHECKLIST */
-        .checkbox-wrapper {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            margin-bottom: 0.5rem;
-        }
-        
-        .checkbox-wrapper input { display: none; }
-        
-        .custom-check {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--highlight);
-            border-radius: 50%;
-            margin-right: 12px;
+        .goal-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
-        
-        .checkbox-wrapper input:checked + .custom-check {
-            background: var(--primary);
-            border-color: var(--primary);
+
+        .goal-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
         }
-        
-        .checkbox-wrapper input:checked + .custom-check::after {
+
+        .goal-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .fix-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .fix-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .fix-list li::before {
             content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        /* SECTION HEADERS */
+        .section-header {
+            text-align: center;
+            margin: 4rem 0 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+        }
+
+        /* TIMELINE */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary), var(--accent));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 3px solid var(--bg);
+        }
+
+        .time-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
-            font-size: 12px;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
         }
 
-        .completed-text {
-            color: var(--accent);
-            text-decoration: line-through;
-            transition: all 0.2s;
+        .timeline-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
 
-        /* --- WORKOUT TABS --- */
+        /* WORKOUT TABS */
         .workout-tabs {
             display: flex;
-            gap: 10px;
+            gap: 0.5rem;
             margin-bottom: 1.5rem;
-            overflow-x: auto;
-            padding-bottom: 10px;
+            flex-wrap: wrap;
         }
 
         .tab-btn {
-            padding: 8px 16px;
-            border: 1px solid var(--highlight);
-            border-radius: 20px;
-            background: transparent;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            padding: 0.6rem 1.2rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface);
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
             cursor: pointer;
-            white-space: nowrap;
             transition: all 0.3s;
+            color: var(--text);
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary-light);
+            background: rgba(99, 102, 241, 0.05);
         }
 
         .tab-btn.active {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
             border-color: var(--primary);
         }
 
         .workout-content {
             display: none;
-            animation: fadeIn 0.5s;
         }
 
         .workout-content.active {
             display: block;
+            animation: fadeIn 0.4s;
         }
 
-        .exercise-item {
-            background: #f8fafc;
-            padding: 1rem;
-            border-radius: 12px;
+        /* EXERCISE CARDS */
+        .exercise-card {
+            background: linear-gradient(135deg, #f8fafc, #ffffff);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .exercise-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-color: var(--primary-light);
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 1rem;
-            border-left: 4px solid var(--primary);
         }
 
-        .exercise-item h5 { font-size: 1.1rem; margin-bottom: 0.25rem; }
-        .exercise-item p { font-size: 0.9rem; color: #64748b; margin:0;}
+        .exercise-card h4 {
+            font-size: 1.2rem;
+            color: var(--text);
+        }
 
-        /* MOBILE */
-        @media (max-width: 600px) {
-            h1 { font-size: 3.5rem; }
-            .timeline-item { flex-direction: column; gap: 0.5rem; border-left: none; padding-left: 0; }
-            .timeline-item::before { display: none; }
+        .demo-btn {
+            background: linear-gradient(135deg, var(--accent), #fbbf24);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        .demo-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .exercise-details {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .visual-guide {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .visual-guide.active {
+            display: block;
+            animation: slideDown 0.3s;
+        }
+
+        .visual-guide img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-tips {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 3px solid var(--success);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text);
+            margin-top: 0.5rem;
+        }
+
+        /* CHECKBOXES */
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .checkbox-item:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .checkbox-item input {
+            display: none;
+        }
+
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .checkbox-item input:checked + .custom-checkbox {
+            background: linear-gradient(135deg, var(--success), #34d399);
+            border-color: var(--success);
+        }
+
+        .checkbox-item input:checked + .custom-checkbox::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+        }
+
+        .checkbox-item input:checked ~ span {
+            text-decoration: line-through;
+            color: var(--text-light);
+        }
+
+        /* DIET CARD */
+        .diet-card {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #fbbf24;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .diet-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            color: #92400e;
+        }
+
+        .diet-card p {
+            color: #78350f;
+            line-height: 1.8;
+        }
+
+        .diet-tip {
+            background: rgba(255,255,255,0.6);
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 500px; }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .timeline { padding-left: 1.5rem; }
+            .timeline::before { left: 0; }
+            .timeline-item::before { left: -1.9rem; }
+            .exercise-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <p class="subtitle">Personalized Protocol</p>
-        <h1>Jensi's<br><em>Transformation</em></h1>
-        <p class="subtitle" style="margin-top:1rem; text-transform:none; font-style:italic;">Face Slimming • Posture Correction • Glow Skin</p>
-        <div class="scroll-indicator">↓</div>
-    </header>
-
     <div class="container">
-        
-        <!-- SECTION 1: THE DIAGNOSIS -->
-        <section>
-            <h2 class="section-title">The Goals</h2>
-            <div class="card">
-                <h3>1. Face Sculpting <span class="tag tag-face">Urgent</span></h3>
-                <p><strong>Diagnosis:</strong> Puffy face due to water retention (salt/sugar) and lack of lymphatic drainage. "Roundness" masks your natural bone structure.</p>
-                <div style="margin-top:1rem; padding-top:1rem; border-top:1px dashed #eee;">
-                    <strong>The Fix:</strong>
-                    <ul>
-                        <li>Gua Sha / Manual Lymphatic Massage (Morning & Night)</li>
-                        <li>Reduce Sodium intake after 6 PM (No chips/salty snacks).</li>
-                        <li><strong>Exercise:</strong> "The Ceiling Kiss" & "Balloon Pose" (See routine)</li>
-                    </ul>
-                </div>
+        <header>
+            <h1>Jensi's Wellness Journey</h1>
+            <p class="subtitle">Face Slimming • Perfect Posture • Glowing Skin</p>
+        </header>
+
+        <!-- GOALS -->
+        <div class="goals-grid">
+            <div class="goal-card">
+                <div class="goal-icon">💧</div>
+                <h3>Face Slimming</h3>
+                <p>Reduce puffiness and reveal your natural bone structure</p>
+                <ul class="fix-list">
+                    <li>Face Yoga daily (Balloon Pose)</li>
+                    <li>Less salt after 6 PM</li>
+                    <li>Gentle face massage</li>
+                </ul>
             </div>
 
-            <div class="card">
-                <h3>2. Posture & Core <span class="tag tag-body">Body</span></h3>
-                <p><strong>Diagnosis:</strong> "Tall Girl Slouch." Hunching causes the belly to protrude and creates a "pooch" even if you are slim. Side fat (love handles) needs oblique work.</p>
-                <div style="margin-top:1rem; padding-top:1rem; border-top:1px dashed #eee;">
-                    <strong>The Fix:</strong>
-                    <ul>
-                        <li><strong>Pilates over Cardio:</strong> Builds deep core strength (transverse abdominis) to flatten the belly.</li>
-                        <li><strong>Wall Angels:</strong> To open up rounded shoulders and stand tall (6ft proud!).</li>
-                        <li><strong>Plank Dips:</strong> To snatch the waist and target side fat.</li>
-                    </ul>
-                </div>
+            <div class="goal-card">
+                <div class="goal-icon">🧘‍♀️</div>
+                <h3>Perfect Posture</h3>
+                <p>Stand tall and proud at 6ft with core strength</p>
+                <ul class="fix-list">
+                    <li>Wall Angels exercise</li>
+                    <li>Deep core work (Pilates)</li>
+                    <li>Target side fat</li>
+                </ul>
             </div>
-            
-            <div class="card">
-                <h3>3. Skin Recovery <span class="tag tag-face">Glow</span></h3>
-                <p><strong>Diagnosis:</strong> Tanning, pimples, and dark circles suggest inflammation and sun damage.</p>
-                <div style="margin-top:1rem; padding-top:1rem; border-top:1px dashed #eee;">
-                    <strong>The Fix:</strong>
-                    <ul>
-                        <li><strong>Internal:</strong> Anti-inflammatory diet (Turmeric, Green Tea, No Dairy).</li>
-                        <li><strong>External:</strong> Strict SPF re-application (Every 3 hours).</li>
-                        <li><strong>Dark Circles:</strong> Sleep at 10:30 PM strict (Cortisol management).</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
 
-        <!-- SECTION 2: THE ROUTINE -->
-        <section>
-            <h2 class="section-title">Daily Protocol</h2>
-            
-            <!-- Morning -->
+            <div class="goal-card">
+                <div class="goal-icon">✨</div>
+                <h3>Glowing Skin</h3>
+                <p>Clear pimples, fade tan, brighten complexion</p>
+                <ul class="fix-list">
+                    <li>SPF 50 every 3 hours</li>
+                    <li>Anti-inflammatory diet</li>
+                    <li>Sleep by 10:30 PM</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- DAILY ROUTINE -->
+        <div class="section-header">
+            <h2>Daily Routine</h2>
+            <p>Follow this schedule for best results</p>
+        </div>
+
+        <div class="timeline">
+            <!-- MORNING -->
             <div class="timeline-item">
-                <div class="time">7:00 AM</div>
-                <div style="width:100%">
-                    <h3>Wake & Hydrate</h3>
-                    <label class="checkbox-wrapper">
-                        <input type="checkbox" onclick="toggleTask(this)">
-                        <div class="custom-check"></div>
-                        <span>1 Glass Warm Water + Lemon (Flushes toxins/Puffiness)</span>
-                    </label>
-                    <label class="checkbox-wrapper">
-                        <input type="checkbox" onclick="toggleTask(this)">
-                        <div class="custom-check"></div>
-                        <span>1 Amla (Vitamin C for Collagen/Skin)</span>
-                    </label>
-                    <label class="checkbox-wrapper">
-                        <input type="checkbox" onclick="toggleTask(this)">
-                        <div class="custom-check"></div>
-                        <span><strong>Face Yoga (5 Mins):</strong> 20x Balloon Puffs, 10x Ceiling Kisses.</span>
-                    </label>
+                <span class="time-badge">7:00 AM</span>
+                <h3>Morning Ritual</h3>
+                
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <div class="custom-checkbox"></div>
+                    <span>1 Glass Warm Water + Lemon (Flushes toxins)</span>
+                </label>
+
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <div class="custom-checkbox"></div>
+                    <span>1 Amla (Vitamin C for skin)</span>
+                </label>
+
+                <div style="margin-top:1rem;">
+                    <strong>Face Yoga (5 Minutes)</strong>
+                    <button class="demo-btn" onclick="toggleDemo('face-yoga-demo')" style="border:none; cursor:pointer; margin-left:1rem;">
+                        👁️ See Visual
+                    </button>
+                    <div id="face-yoga-demo" class="visual-guide">
+                        <img src="images/face_yoga.png" alt="Face Yoga">
+                        <div class="form-tips">
+                            <strong>Balloon Pose:</strong> Puff cheeks with air, hold 10 seconds. Repeat 20 times. This drains water from face!
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- WORKOUT SECTION -->
+            <!-- WORKOUT -->
             <div class="timeline-item">
-                <div class="time">7:10 AM</div>
-                <div style="width:100%">
-                    <h3>5-Day Sculpting Plan (45 Min)</h3>
-                    <p style="margin-bottom:1rem; color:var(--accent); font-size:0.9rem;">Target: Belly Fat, Side Fat, & Posture.</p>
+                <span class="time-badge">7:10 AM</span>
+                <h3>Home Workout (45 Minutes)</h3>
+                <p style="color:var(--text-light); margin-bottom:1rem;">No equipment needed. Do in your room!</p>
+
+                <div class="workout-tabs">
+                    <button class="tab-btn active" onclick="openTab('mon')">Monday</button>
+                    <button class="tab-btn" onclick="openTab('tue')">Tuesday</button>
+                    <button class="tab-btn" onclick="openTab('wed')">Wednesday</button>
+                    <button class="tab-btn" onclick="openTab('thu')">Thursday</button>
+                    <button class="tab-btn" onclick="openTab('fri')">Friday</button>
+                </div>
+
+                <!-- MONDAY -->
+                <div id="mon" class="workout-content active">
+                    <h4 style="margin-bottom:1rem; color:var(--primary);">Core Deep Dive (Belly Fat)</h4>
                     
-                    <div class="workout-tabs">
-                        <button class="tab-btn active" onclick="openTab('mon')">Mon</button>
-                        <button class="tab-btn" onclick="openTab('tue')">Tue</button>
-                        <button class="tab-btn" onclick="openTab('wed')">Wed</button>
-                        <button class="tab-btn" onclick="openTab('thu')">Thu</button>
-                        <button class="tab-btn" onclick="openTab('fri')">Fri</button>
-                    </div>
-
-                    <!-- MONDAY -->
-                    <div id="mon" class="workout-content active">
-                        <h4>M: CORE DEEP DIVE (Belly Fat Focus)</h4>
-                        <br>
-                        <div class="exercise-item">
-                            <h5>1. Plank (Hold)</h5>
-                            <p>3 sets x 45-60 seconds. Keep back straight. Squeeze glutes.</p>
+                    <div class="exercise-card">
+                        <div class="exercise-header">
+                            <h4>1. Plank Hold</h4>
+                            <a href="https://www.youtube.com/results?search_query=how+to+do+plank+correctly" target="_blank" class="demo-btn">
+                                ▶ Watch Video
+                            </a>
                         </div>
-                        <div class="exercise-item">
-                            <h5>2. Leg Raises</h5>
-                            <p>3 sets x 15 reps. Targets lower pouch. Don't let feet touch ground.</p>
-                        </div>
-                        <div class="exercise-item">
-                            <h5>3. Dead Bugs</h5>
-                            <p>3 sets x 20 reps (slow). Flattens the ribcage.</p>
-                        </div>
-                        <div class="exercise-item">
-                            <h5>4. Cobra Stretch</h5>
-                            <p>2 mins. Lengthens abs after crunching.</p>
+                        <p class="exercise-details">3 sets × 60 seconds</p>
+                        <div class="form-tips">
+                            <strong>Form:</strong> Keep body straight like a table. Don't let hips drop. Squeeze your glutes tight!
                         </div>
                     </div>
 
-                    <!-- TUESDAY -->
-                    <div id="tue" class="workout-content">
-                        <h4>T: POSTURE LIFT (Upper Body)</h4>
-                        <br>
-                        <div class="exercise-item">
-                            <h5>1. Wall Angels</h5>
-                            <p>3 sets x 15 reps. Stand against wall, arms up/down like making snow angel.</p>
+                    <div class="exercise-card">
+                        <div class="exercise-header">
+                            <h4>2. Leg Raises</h4>
+                            <a href="https://www.youtube.com/results?search_query=leg+raises+exercise+tutorial" target="_blank" class="demo-btn">
+                                ▶ Watch Video
+                            </a>
                         </div>
-                        <div class="exercise-item">
-                            <h5>2. Supermans</h5>
-                            <p>3 sets x 12 reps. Lying on stomach, lift chest and legs. Strengthens lower back.</p>
-                        </div>
-                        <div class="exercise-item">
-                            <h5>3. Bird-Dog</h5>
-                            <p>3 sets x 12 reps each side. For balance and core stability.</p>
+                        <p class="exercise-details">3 sets × 15 reps</p>
+                        <div class="form-tips">
+                            <strong>Target:</strong> Lower belly pouch. Lift legs up and down slowly. Don't let feet touch floor!
                         </div>
                     </div>
 
-                    <!-- WEDNESDAY -->
-                    <div id="wed" class="workout-content">
-                        <h4>W: SWEAT & DETOX (Face Slimming HIIT)</h4>
-                        <br>
-                        <div class="exercise-item">
-                            <h5>1. Jumping Jacks</h5>
-                            <p>3 mins total. Gets lymph moving to reduce puffy face.</p>
+                    <div class="exercise-card">
+                        <div class="exercise-header">
+                            <h4>3. Dead Bugs</h4>
+                            <button class="demo-btn" onclick="toggleDemo('deadbug-demo')" style="border:none; cursor:pointer;">
+                                👁️ See Visual
+                            </button>
                         </div>
-                        <div class="exercise-item">
-                            <h5>2. Mountain Climbers</h5>
-                            <p>3 sets x 30 seconds. Burns calories fast.</p>
+                        <div id="deadbug-demo" class="visual-guide">
+                            <img src="images/dead_bug.png" alt="Dead Bug Exercise">
+                            <div class="form-tips">
+                                Lie on back. Extend opposite arm and leg. Keep lower back pressed to floor. This flattens your stomach!
+                            </div>
                         </div>
-                        <div class="exercise-item">
-                            <h5>3. High Knees</h5>
-                            <p>3 sets x 30 seconds. Lift knees to chest.</p>
+                        <p class="exercise-details">3 sets × 20 reps (slow and controlled)</p>
+                    </div>
+                </div>
+
+                <!-- TUESDAY -->
+                <div id="tue" class="workout-content">
+                    <h4 style="margin-bottom:1rem; color:var(--primary);">Posture Lift (Stand Tall)</h4>
+                    
+                    <div class="exercise-card">
+                        <div class="exercise-header">
+                            <h4>1. Wall Angels</h4>
+                            <button class="demo-btn" onclick="toggleDemo('wallangel-demo')" style="border:none; cursor:pointer;">
+                                👁️ See Visual
+                            </button>
+                        </div>
+                        <div id="wallangel-demo" class="visual-guide">
+                            <img src="images/wall_angel.png" alt="Wall Angels">
+                            <div class="form-tips">
+                                Stand against wall. Slide arms up while keeping elbows touching wall. Opens rounded shoulders!
+                            </div>
+                        </div>
+                        <p class="exercise-details">3 sets × 15 reps</p>
+                    </div>
+
+                    <div class="exercise-card">
+                        <div class="exercise-header">
+                            <h4>2. Supermans</h4>
+                            <a href="https://www.youtube.com/results?search_query=superman+exercise+tutorial" target="_blank" class="demo-btn">
+                                ▶ Watch Video
+                            </a>
+                        </div>
+                        <p class="exercise-details">3 sets × 12 reps</p>
+                        <div class="form-tips">
+                            Lie on stomach. Lift chest and legs together. Strengthens lower back for better posture.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WEDNESDAY -->
+                <div id="wed" class="workout-content">
+                    <h4 style="margin-bottom:1rem; color:var(--primary);">Sweat & Detox (Face Slimming)</h4>
+                    
+                    <div class="exercise-card">
+                        <div class="exercise-header">
+                            <h4>1. Jumping Jacks</h4>
+                            <a href="https://www.youtube.com/results?search_query=jumping+jacks+tutorial" target="_blank" class="demo-btn">
+                                ▶ Watch Video
+                            </a>
+                        </div>
+                        <p class="exercise-details">3 minutes total</p>
+                        <div class="form-tips">
+                            Gets blood flowing to reduce puffy face. Jump and clap above head!
                         </div>
                     </div>
 
-                    <!-- THURSDAY -->
-                    <div id="thu" class="workout-content">
-                        <h4>Th: WAIST SNATCHER (Side Fat)</h4>
-                        <br>
-                        <div class="exercise-item">
-                            <h5>1. Russian Twists</h5>
-                            <p>3 sets x 20 reps. Twist torso fully side to side.</p>
+                    <div class="exercise-card">
+                        <div class="exercise-header">
+                            <h4>2. Mountain Climbers</h4>
+                            <a href="https://www.youtube.com/results?search_query=mountain+climbers+exercise" target="_blank" class="demo-btn">
+                                ▶ Watch Video
+                            </a>
                         </div>
-                        <div class="exercise-item">
-                            <h5>2. Side Planks</h5>
-                            <p>3 sets x 30 sec hold (each side). Targets love handles.</p>
+                        <p class="exercise-details">3 sets × 30 seconds</p>
+                        <div class="form-tips">
+                            Like running in plank position. Burns calories fast!
                         </div>
-                        <div class="exercise-item">
-                            <h5>3. Bicycle Crunches</h5>
-                            <p>3 sets x 20 reps. Elbow to opposite knee.</p>
+                    </div>
+                </div>
+
+                <!-- THURSDAY -->
+                <div id="thu" class="workout-content">
+                    <h4 style="margin-bottom:1rem; color:var(--primary);">Waist Snatcher (Side Fat)</h4>
+                    
+                    <div class="exercise-card">
+                        <div class="exercise-header">
+                            <h4>1. Russian Twists</h4>
+                            <a href="https://www.youtube.com/results?search_query=russian+twist+tutorial" target="_blank" class="demo-btn">
+                                ▶ Watch Video
+                            </a>
+                        </div>
+                        <p class="exercise-details">3 sets × 20 reps</p>
+                        <div class="form-tips">
+                            Sit and twist torso side to side. Targets love handles and side fat!
                         </div>
                     </div>
 
-                    <!-- FRIDAY -->
-                    <div id="fri" class="workout-content">
-                        <h4>F: PILATES FULL BODY (Lengthening)</h4>
-                        <br>
-                        <div class="exercise-item">
-                            <h5>1. Glute Bridges</h5>
-                            <p>3 sets x 20 reps. Squeeze at top.</p>
+                    <div class="exercise-card">
+                        <div class="exercise-header">
+                            <h4>2. Side Planks</h4>
+                            <a href="https://www.youtube.com/results?search_query=side+plank+tutorial" target="_blank" class="demo-btn">
+                                ▶ Watch Video
+                            </a>
                         </div>
-                        <div class="exercise-item">
-                            <h5>2. Donkey Kicks</h5>
-                            <p>3 sets x 15 reps each leg.</p>
+                        <p class="exercise-details">3 sets × 30 seconds each side</p>
+                        <div class="form-tips">
+                            Hold body sideways on one arm. Best for waist definition!
                         </div>
-                        <div class="exercise-item">
-                            <h5>3. 100s (Pilates)</h5>
-                            <p>Hold legs up, pump arms 100 times. Ultimate core burner.</p>
+                    </div>
+                </div>
+
+                <!-- FRIDAY -->
+                <div id="fri" class="workout-content">
+                    <h4 style="margin-bottom:1rem; color:var(--primary);">Pilates Full Body</h4>
+                    
+                    <div class="exercise-card">
+                        <div class="exercise-header">
+                            <h4>1. Glute Bridges</h4>
+                            <a href="https://www.youtube.com/results?search_query=glute+bridge+tutorial" target="_blank" class="demo-btn">
+                                ▶ Watch Video
+                            </a>
+                        </div>
+                        <p class="exercise-details">3 sets × 20 reps</p>
+                        <div class="form-tips">
+                            Lie on back, lift hips high. Squeeze glutes at top. Tones lower body!
                         </div>
                     </div>
 
+                    <div class="exercise-card">
+                        <div class="exercise-header">
+                            <h4>2. Donkey Kicks</h4>
+                            <a href="https://www.youtube.com/results?search_query=donkey+kicks+exercise" target="_blank" class="demo-btn">
+                                ▶ Watch Video
+                            </a>
+                        </div>
+                        <p class="exercise-details">3 sets × 15 reps each leg</p>
+                        <div class="form-tips">
+                            On hands and knees, kick leg back. Great for glutes and posture!
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Skin Prep -->
+            <!-- SKINCARE -->
             <div class="timeline-item">
-                <div class="time">8:20 AM</div>
-                <div style="width:100%">
-                    <h3>Skin Defense Layer</h3>
-                    <ul>
-                        <li>Face Wash (Gentle - No harsh scrubbing on pimples)</li>
-                        <li><strong>Ice Roller:</strong> 2 mins upward strokes (Depuffs eyes/cheeks).</li>
-                        <li>Vitamin C Serum (Fades dark spots/Tan)</li>
-                        <li>Vitamin B5 (Hydrates without oiliness)</li>
-                        <li><strong>SPF 50 (Critical):</strong> Apply even if staying indoors.</li>
-                    </ul>
-                </div>
+                <span class="time-badge">8:20 AM</span>
+                <h3>Skin Defense</h3>
+                
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <div class="custom-checkbox"></div>
+                    <span>Face Wash (Gentle)</span>
+                </label>
+
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <div class="custom-checkbox"></div>
+                    <span>Ice Roller (2 mins - Reduces puffiness)</span>
+                </label>
+
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <div class="custom-checkbox"></div>
+                    <span>Vitamin C Serum (Fades dark spots)</span>
+                </label>
+
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <div class="custom-checkbox"></div>
+                    <span>SPF 50 Sunscreen (MOST IMPORTANT!)</span>
+                </label>
             </div>
 
-            <!-- Nutrition -->
+            <!-- LUNCH -->
             <div class="timeline-item">
-                <div class="time">Daytime</div>
-                <div style="width:100%">
-                    <h3>Internal Repair</h3>
-                    <div class="card" style="background:#fcfaf8; border:none;">
-                        <h4>🥗 Lunch Idea (Anti-Bloat)</h4>
-                        <p>Grilled Chicken/Paneer + Cucumber Salad + Curd. (Avoid excess wheat/rice - carbs retain water).</p>
+                <span class="time-badge">1:00 PM</span>
+                <h3>Gujarati Lunch (Ghar Nu Jaman)</h3>
+                
+                <div class="diet-card">
+                    <h4>🥗 Anti-Bloat Meal</h4>
+                    <p>
+                        <strong>1 Bajra Rotla</strong> (better than wheat)<br>
+                        <strong>1 Bowl Moong/Chana</strong> (protein)<br>
+                        <strong>Cucumber Salad</strong> (no salt)<br>
+                        <strong>Chaas</strong> (buttermilk, no salt)
+                    </p>
+                    <div class="diet-tip">
+                        ⚠️ Avoid: Fried Farsan, excess Pickle (Athanu), too much oil in Dal
                     </div>
-                    <label class="checkbox-wrapper">
-                        <input type="checkbox" onclick="toggleTask(this)">
-                        <div class="custom-check"></div>
-                        <span>Drink 3L Water (Set hourly reminders)</span>
-                    </label>
                 </div>
+
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <div class="custom-checkbox"></div>
+                    <span>Drink 3L Water Today (Set hourly reminders)</span>
+                </label>
             </div>
 
-            <!-- Night -->
+            <!-- DINNER -->
             <div class="timeline-item">
-                <div class="time">9:30 PM</div>
-                <div style="width:100%">
-                    <h3>Recovery & Repair</h3>
-                    <label class="checkbox-wrapper">
-                        <input type="checkbox" onclick="toggleTask(this)">
-                        <div class="custom-check"></div>
-                        <span>Doctor's Cream on Dark Spots</span>
-                    </label>
-                    <label class="checkbox-wrapper">
-                        <input type="checkbox" onclick="toggleTask(this)">
-                        <div class="custom-check"></div>
-                        <span><strong>Posture Check:</strong> Sleep on back (prevents face wrinkles).</span>
-                    </label>
-                    <label class="checkbox-wrapper">
-                        <input type="checkbox" onclick="toggleTask(this)">
-                        <div class="custom-check"></div>
-                        <span>Haldi Milk (Inflammation killer)</span>
-                    </label>
+                <span class="time-badge">9:00 PM</span>
+                <h3>Light Dinner</h3>
+                
+                <div class="diet-card">
+                    <h4>🍲 Easy Digestion</h4>
+                    <p>
+                        <strong>Option 1:</strong> Khichdi + Kadhi (light)<br>
+                        <strong>Option 2:</strong> Moong Soup / Vegetable Soup
+                    </p>
+                    <div class="diet-tip">
+                        ❌ Avoid: Potato Shak, Maida (Pizza/Burger), Heavy Sweets
+                    </div>
                 </div>
-            </div>
-            
-        </section>
 
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <div class="custom-checkbox"></div>
+                    <span>Doctor's Cream on dark spots</span>
+                </label>
+
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <div class="custom-checkbox"></div>
+                    <span>Haldi Doodh (Turmeric Milk - Heals pimples!)</span>
+                </label>
+            </div>
+
+            <!-- SLEEP -->
+            <div class="timeline-item">
+                <span class="time-badge">10:45 PM</span>
+                <h3>Sleep Time</h3>
+                
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <div class="custom-checkbox"></div>
+                    <span>Sleep on back (prevents face wrinkles)</span>
+                </label>
+
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <div class="custom-checkbox"></div>
+                    <span>Phone away, dark room</span>
+                </label>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Reveal on Scroll
+        // Tab switching
+        function openTab(day) {
+            // Hide all
+            document.querySelectorAll('.workout-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Deactivate all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected
+            document.getElementById(day).classList.add('active');
+            
+            // Activate button
+            event.target.classList.add('active');
+        }
+
+        // Toggle visual guides
+        function toggleDemo(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.classList.toggle('active');
+            }
+        }
+
+        // Scroll reveal animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
-
-        // Task Toggle Logic
-        function toggleTask(checkbox) {
-            const text = checkbox.nextElementSibling.nextElementSibling;
-            if (checkbox.checked) {
-                text.classList.add('completed-text');
-                gsap.to(text, { x: 5, duration: 0.2 });
-            } else {
-                text.classList.remove('completed-text');
-                gsap.to(text, { x: 0, duration: 0.2 });
-            }
-        }
-
-        // Workout Tabs Logic
-        function openTab(dayName) {
-            // Hide all
-            var i, x, tablinks;
-            x = document.getElementsByClassName("workout-content");
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-                x[i].classList.remove('active');
-            }
-            // Deactivate buttons
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            // Show target
-            document.getElementById(dayName).style.display = "block";
-            // Wait a tick for animation
-            setTimeout(() => {
-                document.getElementById(dayName).classList.add('active');
-            }, 10);
-            
-            // Activate button (need event target, but simpler here: loop find by text/id mapping if needed, or just rely on the onclick binding passing 'this' if we changed it, but here we just used ID. Let's fix the button active state.)
-            // Actually, I need to pass the event or find the button. Let's just fix the button logic to be simpler:
-            // RERUN logic:
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => {
-                if(btn.textContent.toLowerCase().includes(dayName.substring(0,3))) {
-                     btn.classList.add('active');
-                }
-            });
-        }
-
-        // Hero Parallax
-        document.addEventListener('mousemove', (e) => {
-            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
-            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
-            gsap.to('h1', { x: moveX, y: moveY, duration: 1 });
+        document.querySelectorAll('.timeline-item, .goal-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
         });
     </script>
 </body>
