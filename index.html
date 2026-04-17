@@ -39,13 +39,23 @@
   html, body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     color: var(--ink-1);
-    background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 50%, var(--bg-3) 100%);
-    background-attachment: fixed;
+    background: var(--bg-1);
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     line-height: 1.5;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
   }
   body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 50%, var(--bg-3) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
     content: "";
     position: fixed;
     inset: 0;
@@ -133,8 +143,7 @@
     border-radius: 24px;
     padding: 22px;
     box-shadow: var(--shadow);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    transform: translateZ(0);
   }
 
   /* ---------- HERO MOOD CARD ---------- */
@@ -763,6 +772,59 @@
   .emo-card h5 { font-size: 14px; margin-bottom: 4px; }
   .emo-card p { font-size: 13px; color: var(--ink-2); line-height: 1.5; }
 
+  /* ---------- SKIP PENALTY NOTICE ---------- */
+  .skip-notice {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    padding: 10px 16px;
+    background: linear-gradient(90deg, #FFF0F5, #FFF8EC);
+    border-bottom: 1px solid rgba(232,92,133,0.2);
+    box-shadow: 0 4px 16px -8px rgba(232,92,133,0.2);
+    transition: max-height .35s ease, opacity .3s ease, padding .3s ease;
+    max-height: 120px;
+    overflow: hidden;
+  }
+  .skip-notice.dismissed {
+    max-height: 0;
+    opacity: 0;
+    padding: 0;
+    pointer-events: none;
+  }
+  .skip-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  @media (min-width: 900px) { .skip-inner { max-width: 1180px; } }
+  .skip-ico {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .skip-text {
+    flex: 1;
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.5;
+  }
+  .skip-text strong { color: var(--rose-deep); display: block; margin-bottom: 2px; }
+  .skip-close {
+    flex-shrink: 0;
+    border: 0;
+    background: transparent;
+    font-size: 15px;
+    color: var(--ink-3);
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 6px;
+    line-height: 1;
+    transition: color .2s;
+  }
+  .skip-close:hover { color: var(--rose-deep); }
+
   /* Hidden section toggle */
   section.hidden-pane { display: none; }
 
@@ -776,12 +838,24 @@
 </head>
 <body>
 
+<!-- ==================== SKIP PENALTY NOTICE ==================== -->
+<div class="skip-notice" id="skipNotice">
+  <div class="skip-inner">
+    <span class="skip-ico">⚡</span>
+    <div class="skip-text">
+      <strong>No skipping, Jensi!</strong>
+      Skipping any day (except your period days) will cost you <b>snaps to nalayak as an penalty points</b>. Show up every day — your future self is watching.
+    </div>
+    <button class="skip-close" id="skipClose" aria-label="Dismiss">✕</button>
+  </div>
+</div>
+
 <div class="app">
 
   <!-- ==================== TOP HEADER ==================== -->
   <header class="top">
     <div class="hi">
-      <h1>Good morning, love ✿</h1>
+      <h1>Good morning, Jensi ✿</h1>
       <p id="dateLabel">Monday · A gentle day awaits</p>
     </div>
     <div class="pill-row">
@@ -1323,6 +1397,69 @@ const EX = {
 };
 
 /* ============================================================
+   WEEKLY ROTATION — each day has a focus + exercise IDs
+   0 = Sun, 1 = Mon, …, 6 = Sat
+   ============================================================ */
+const WEEKLY = {
+  0: {
+    label: "Gentle Recovery",
+    morning:  ["surya"],
+    night:    ["cat-cow", "face-jaw", "cheek-lift"],
+    heroTitle: "Rest deeply — your body rebuilds today.",
+    heroEmo:   "Sunday is sacred. Light movement, warm tea, and kindness to yourself.",
+    chips:     ["🌸 Morning: Light Surya", "✨ Night: Face Yoga", "🏊 Optional swim"]
+  },
+  1: {
+    label: "Core Blast",
+    morning:  ["surya", "bicycle", "russian-twist", "side-plank"],
+    night:    ["tri-dip", "chin-tuck", "wall-push"],
+    heroTitle: "Fire up that core — it's Monday magic.",
+    heroEmo:   "A strong core = a strong week. You're already winning by showing up.",
+    chips:     ["🔥 Morning: Core + Obliques", "💪 Night: Arms + Posture", "🏊 Evening Swim · 30 min"]
+  },
+  2: {
+    label: "Love Handles + Arms",
+    morning:  ["surya", "side-plank", "russian-twist", "bicycle"],
+    night:    ["tri-dip", "wall-push", "face-jaw", "cat-cow"],
+    heroTitle: "Hello, waistline. Let's sculpt today.",
+    heroEmo:   "Side planks and twists are your love-handle erasers. Stay slow and deliberate.",
+    chips:     ["💃 Morning: Love Handles", "💪 Night: Arms + Face Yoga", "🏊 Evening Swim · 30 min"]
+  },
+  3: {
+    label: "Full Body Burn",
+    morning:  ["surya", "bicycle", "sumo-squat", "side-plank"],
+    night:    ["chin-tuck", "cheek-lift", "cat-cow"],
+    heroTitle: "Full body today — head to toe.",
+    heroEmo:   "Midweek is your peak energy window. Surya + squats + core = full-body glow.",
+    chips:     ["🔥 Morning: Full Body", "🦢 Night: Posture + Face", "🏊 Evening Swim · 30 min"]
+  },
+  4: {
+    label: "Thigh Slim + Posture",
+    morning:  ["surya", "sumo-squat", "bicycle"],
+    night:    ["chin-tuck", "wall-push", "cat-cow"],
+    heroTitle: "Strong, lean legs — that's today's story.",
+    heroEmo:   "Sumo pulses + bicycle crunches reduce thigh friction gently over time. Be patient.",
+    chips:     ["🦵 Morning: Thigh Slim", "🦢 Night: Posture Fix", "🏊 Evening Swim · 30 min"]
+  },
+  5: {
+    label: "Cardio + Sculpt",
+    morning:  ["surya", "bicycle", "sumo-squat", "russian-twist"],
+    night:    ["tri-dip", "face-jaw", "cheek-lift"],
+    heroTitle: "Friday energy — let's burn and glow.",
+    heroEmo:   "End the week strong. Cardio bursts + toning tonight — you've earned the weekend.",
+    chips:     ["🔥 Morning: Cardio + Core", "✨ Night: Arms + Face Glow", "🏊 Evening Swim · 30 min"]
+  },
+  6: {
+    label: "Stretch + Restore",
+    morning:  ["surya", "side-plank"],
+    night:    ["cat-cow", "cheek-lift", "face-jaw"],
+    heroTitle: "Soften and restore — Saturday is for you.",
+    heroEmo:   "Flow slowly. Stretch deeply. Rest is not laziness — it's part of the plan.",
+    chips:     ["🧘 Morning: Light Flow", "✨ Night: Face Yoga", "🏊 Relaxed swim"]
+  }
+};
+
+/* ============================================================
    UTILITIES
    ============================================================ */
 const $ = sel => document.querySelector(sel);
@@ -1357,10 +1494,22 @@ function showToast(msg) {
 let currentTime = 'morning';
 let currentLevel = 1;
 
+function todayPlan() {
+  return WEEKLY[new Date().getDay()];
+}
+
 function renderExercises() {
   const grid = $('#exGrid');
   grid.innerHTML = '';
-  EX[currentTime].forEach(ex => {
+  const plan = todayPlan();
+  const ids = plan[currentTime]; // array of exercise IDs for today
+  const pool = EX[currentTime];
+  // preserve the day's intended order
+  const exercises = ids.map(id => pool.find(e => e.id === id)).filter(Boolean);
+  // update the section sub-label
+  const sub = document.querySelector('#timeToggle')?.closest('section')?.querySelector('.section-head small');
+  if (sub) sub.textContent = `${plan.label} · ${exercises.length} exercises`;
+  exercises.forEach(ex => {
     const card = document.createElement('div');
     card.className = 'ex-card reveal';
     card.innerHTML = `
@@ -1510,7 +1659,7 @@ renderCal();
 function setPeriodMode(on) {
   document.body.classList.toggle('period-mode', on);
   if (on) {
-    $('#heroTitle').textContent = "Soft day. Your body is working hard, love.";
+    $('#heroTitle').textContent = "Soft day. Your body is working hard, Jensi.";
     $('#heroEmotion').textContent = "Today is for rest, warm food, and gentle stretches. No HIIT — you've already earned today.";
     $('#phaseTitle').textContent = "You're in your Period phase";
     $('#phaseDesc').textContent = "Full recovery mode 🩷 Stick to restorative yoga, Child's pose, and legs-up-the-wall. Warm water with jaggery helps cramps.";
@@ -1608,7 +1757,32 @@ const today = new Date();
 const wkDay = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][today.getDay()];
 const mon = ['January','February','March','April','May','June','July','August','September','October','November','December'][today.getMonth()];
 $('#heroDate').textContent = `Today · ${mon} ${today.getDate()}`;
-$('#dateLabel').textContent = `${wkDay} · A gentle day awaits`;
+$('#dateLabel').textContent = `${wkDay} · ${todayPlan().label}`;
+
+// Update hero card with today's dynamic content
+const tp = todayPlan();
+$('#heroTitle').textContent  = tp.heroTitle;
+$('#heroEmotion').textContent = tp.heroEmo;
+const chipsEl = document.querySelector('.hero .chips');
+if (chipsEl) {
+  chipsEl.innerHTML = tp.chips.map(c => {
+    const cls = c.includes('Morning') ? 'soft-rose' : c.includes('Night') ? 'soft-lav' : 'soft-mint';
+    return `<span class="chip ${cls}">${c}</span>`;
+  }).join('');
+}
+
+/* ============================================================
+   SKIP NOTICE — close + remember dismiss
+   ============================================================ */
+(function() {
+  const notice = document.getElementById('skipNotice');
+  const btn    = document.getElementById('skipClose');
+  if (sessionStorage.getItem('skipNoticeDismissed')) notice.classList.add('dismissed');
+  btn.addEventListener('click', () => {
+    notice.classList.add('dismissed');
+    sessionStorage.setItem('skipNoticeDismissed', '1');
+  });
+})();
 
 /* ============================================================
    INIT
