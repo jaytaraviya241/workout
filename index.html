@@ -1,844 +1,1571 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jensi's Wellness Journey</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        :root {
-            --primary: #6366f1;
-            --primary-light: #818cf8;
-            --primary-dark: #4f46e5;
-            --accent: #f59e0b;
-            --success: #10b981;
-            --bg: #fafafa;
-            --surface: #ffffff;
-            --text: #1f2937;
-            --text-light: #6b7280;
-            --border: #e5e7eb;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bloom — Your Gentle Fitness Companion</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-1: #FFF4F0;
+    --bg-2: #F6EEFF;
+    --bg-3: #ECFBF5;
+    --card: #FFFFFFEE;
+    --ink-1: #2A1B35;
+    --ink-2: #5A4A66;
+    --ink-3: #8B7D95;
+    --rose: #FF9BB5;
+    --rose-deep: #E85C85;
+    --peach: #FFB088;
+    --lavender: #B8A4FF;
+    --mint: #7ED9B7;
+    --cream: #FFE7D1;
+    --gold: #E8B86F;
+    --line: #F0E6EE;
+    --shadow: 0 12px 40px -18px rgba(168, 100, 140, 0.28);
+    --shadow-soft: 0 6px 20px -10px rgba(168, 100, 140, 0.18);
+  }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #faf5ff 0%, #fef3c7 100%);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
+  /* PERIOD MODE color override */
+  body.period-mode {
+    --bg-1: #FFEEF3;
+    --bg-2: #FFE3EC;
+    --bg-3: #FFF4F7;
+    --rose: #FF7FA5;
+    --rose-deep: #D94878;
+  }
 
-        h1, h2, h3, h4 {
-            font-family: 'Crimson Pro', serif;
-            font-weight: 600;
-            line-height: 1.2;
-        }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--ink-1);
+    background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 50%, var(--bg-3) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(600px 400px at 10% 0%, rgba(255,176,136,0.25), transparent 70%),
+      radial-gradient(600px 500px at 90% 20%, rgba(184,164,255,0.22), transparent 70%),
+      radial-gradient(700px 500px at 50% 100%, rgba(126,217,183,0.18), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .app {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 24px 20px 120px;
+  }
+  @media (min-width: 900px) {
+    .app { max-width: 1180px; padding: 32px 40px 120px; }
+  }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-        }
+  /* ---------- HEADER ---------- */
+  header.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+  .hi h1 {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+  }
+  .hi p {
+    font-size: 13px;
+    color: var(--ink-3);
+    margin-top: 2px;
+  }
+  .pill-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .pill-mini {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--card);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-1);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--line);
+  }
+  .pill-mini .ico {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--peach), var(--rose));
+    color: white; font-size: 12px;
+  }
+  .pill-mini.cycle .ico { background: linear-gradient(135deg, var(--rose), var(--rose-deep)); }
+  .pill-mini.streak .ico { background: linear-gradient(135deg, var(--gold), var(--peach)); }
 
-        /* HEADER */
-        header {
-            text-align: center;
-            padding: 4rem 0 3rem;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(245, 158, 11, 0.1));
-            border-radius: 30px;
-            margin-bottom: 3rem;
-        }
+  /* ---------- SECTION / CARD ---------- */
+  section { margin-bottom: 32px; scroll-margin-top: 20px; }
+  .section-head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 14px;
+  }
+  .section-head h2 {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
+    font-size: 22px;
+    letter-spacing: -0.3px;
+  }
+  .section-head small {
+    font-size: 12px; color: var(--ink-3);
+    text-transform: uppercase; letter-spacing: 1.2px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
 
-        h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-        }
+  /* ---------- HERO MOOD CARD ---------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 28px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.82), rgba(255,255,255,0.6));
+    border: 1px solid rgba(255,255,255,0.7);
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(255,155,181,0.45), transparent 70%);
+    filter: blur(10px);
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(184,164,255,0.35), transparent 70%);
+    filter: blur(10px);
+  }
+  .hero-inner { position: relative; z-index: 1; }
+  .hero-date { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+  .hero h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px; font-weight: 400;
+    line-height: 1.15; letter-spacing: -0.4px;
+    max-width: 28ch;
+  }
+  .hero p.emotion { margin-top: 10px; color: var(--ink-2); font-size: 15px; max-width: 40ch; }
+  .hero .chips { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    font-size: 12px; font-weight: 600; padding: 7px 12px; border-radius: 999px;
+    background: #fff; border: 1px solid var(--line); color: var(--ink-2);
+  }
+  .chip.soft-rose { background: #FFE7EE; color: var(--rose-deep); border-color: transparent; }
+  .chip.soft-lav { background: #EFE8FF; color: #6E55C2; border-color: transparent; }
+  .chip.soft-mint { background: #DEF5EA; color: #3C8C69; border-color: transparent; }
 
-        .subtitle {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            font-weight: 500;
-        }
+  /* ---------- MORNING/NIGHT TOGGLE ---------- */
+  .toggle {
+    display: inline-flex;
+    padding: 5px;
+    background: #fff;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+  }
+  .toggle button {
+    border: 0; background: transparent;
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--ink-3);
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: inherit;
+    transition: all .25s ease;
+  }
+  .toggle button.active {
+    background: linear-gradient(135deg, var(--rose), var(--peach));
+    color: #fff;
+    box-shadow: 0 6px 16px -8px rgba(232,92,133,0.5);
+  }
+  .toggle button.active.night {
+    background: linear-gradient(135deg, #6E55C2, var(--lavender));
+    box-shadow: 0 6px 16px -8px rgba(110,85,194,0.55);
+  }
 
-        /* GOAL CARDS */
-        .goals-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
+  /* ---------- LEVEL BAR ---------- */
+  .levels {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .level-tile {
+    border: 1px solid var(--line);
+    background: #fff;
+    border-radius: 16px;
+    padding: 12px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .level-tile:hover { transform: translateY(-2px); }
+  .level-tile .num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; line-height: 1;
+    background: linear-gradient(135deg, var(--rose), var(--peach));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .level-tile .lb { font-size: 11px; color: var(--ink-3); margin-top: 4px; font-weight: 600; letter-spacing: 0.3px; }
+  .level-tile.active {
+    border-color: var(--rose);
+    box-shadow: 0 10px 22px -14px rgba(232,92,133,0.6);
+    background: linear-gradient(180deg, #FFF5F8, #fff);
+  }
 
-        .goal-card {
-            background: var(--surface);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border: 1px solid var(--border);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+  /* ---------- EXERCISE GRID ---------- */
+  .ex-grid {
+    display: grid; gap: 14px;
+    grid-template-columns: 1fr;
+    margin-top: 18px;
+  }
+  @media (min-width: 720px) {
+    .ex-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1080px) {
+    .ex-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .ex-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 0;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    box-shadow: var(--shadow-soft);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .ex-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .ex-thumb {
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  .ex-thumb::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(42,27,53,0.55));
+  }
+  .ex-thumb .tag {
+    position: absolute; top: 12px; left: 12px; z-index: 2;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
+    padding: 5px 10px; border-radius: 999px;
+    background: rgba(255,255,255,0.9); color: var(--ink-1);
+    text-transform: uppercase;
+  }
+  .ex-thumb .play {
+    position: absolute; bottom: 12px; right: 12px; z-index: 2;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.95);
+    display: grid; place-items: center;
+    color: var(--rose-deep);
+    font-size: 14px;
+    box-shadow: 0 6px 16px -8px rgba(0,0,0,0.35);
+  }
+  .ex-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .ex-body h4 {
+    font-size: 16px; font-weight: 700; letter-spacing: -0.2px;
+  }
+  .ex-meta { display: flex; gap: 12px; font-size: 12px; color: var(--ink-3); }
+  .ex-meta span { display: inline-flex; align-items: center; gap: 5px; }
+  .ex-btns { display: flex; gap: 8px; margin-top: auto; }
+  .btn {
+    font-family: inherit;
+    font-size: 13px; font-weight: 600;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 0;
+    cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.primary {
+    background: linear-gradient(135deg, var(--rose), var(--peach));
+    color: #fff;
+    box-shadow: 0 8px 18px -10px rgba(232,92,133,0.55);
+    flex: 1;
+  }
+  .btn.ghost {
+    background: #FFF2F6;
+    color: var(--rose-deep);
+  }
+  .btn.lav {
+    background: linear-gradient(135deg, #6E55C2, var(--lavender));
+    color: #fff;
+  }
 
-        .goal-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.15);
-        }
+  /* ---------- TWO COLUMN LAYOUT ---------- */
+  .grid-2 {
+    display: grid; gap: 20px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px) {
+    .grid-2 { grid-template-columns: 1.3fr 1fr; }
+  }
 
-        .goal-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary-light), var(--primary));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
+  /* ---------- CYCLE CALENDAR ---------- */
+  .cal {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;
+    margin-top: 10px;
+  }
+  .cal .wd {
+    font-size: 10px; color: var(--ink-3); text-align: center; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
+  }
+  .cal .d {
+    aspect-ratio: 1;
+    border-radius: 12px;
+    display: grid; place-items: center;
+    font-size: 13px; font-weight: 600;
+    background: #fff;
+    border: 1px solid var(--line);
+    color: var(--ink-2);
+    position: relative;
+  }
+  .cal .d.today { outline: 2px solid var(--rose-deep); outline-offset: 2px; }
+  .cal .d.period { background: linear-gradient(135deg, #FFD3DE, #FFB6CC); color: #8A2F4F; border-color: transparent; }
+  .cal .d.low { background: #FFE9F0; color: #C93C69; border-color: transparent; }
+  .cal .d.rest { background: #E8F7EE; color: #2E7B52; border-color: transparent; }
 
-        .goal-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-            color: var(--text);
-        }
+  .legend { display: flex; gap: 14px; margin-top: 14px; flex-wrap: wrap; font-size: 12px; color: var(--ink-2); }
+  .legend i {
+    display: inline-block; width: 12px; height: 12px; border-radius: 4px; margin-right: 6px; vertical-align: middle;
+  }
 
-        .goal-card p {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-        }
+  /* ---------- PHASE PANEL ---------- */
+  .phase-panel {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 16px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #FFE7EE, #FFF5F8);
+    border: 1px solid #FFD6E1;
+    margin-top: 14px;
+  }
+  .phase-panel .em {
+    width: 46px; height: 46px; flex: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+    display: grid; place-items: center;
+    color: #fff; font-size: 22px;
+  }
+  .phase-panel h5 { font-size: 15px; margin-bottom: 4px; font-weight: 700; }
+  .phase-panel p { font-size: 13px; color: var(--ink-2); }
 
-        .fix-list {
-            list-style: none;
-            padding: 0;
-        }
+  /* ---------- STAT TILES ---------- */
+  .stats {
+    display: grid; gap: 12px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stat {
+    padding: 18px;
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid var(--line);
+  }
+  .stat .lb { font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--ink-3); font-weight: 700; }
+  .stat .v {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px;
+    margin-top: 4px;
+    background: linear-gradient(135deg, var(--rose), var(--peach));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .stat.lav .v { background: linear-gradient(135deg, #6E55C2, var(--lavender)); -webkit-background-clip: text; background-clip: text; color: transparent;}
+  .stat.mint .v { background: linear-gradient(135deg, #3C8C69, var(--mint)); -webkit-background-clip: text; background-clip: text; color: transparent;}
+  .stat .sub { font-size: 12px; color: var(--ink-3); margin-top: 6px; }
 
-        .fix-list li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-            font-size: 0.9rem;
-        }
+  /* ---------- SWIM / DIET / TIMELINE CARDS ---------- */
+  .swim-card {
+    background: linear-gradient(135deg, #D9F1FF, #EAF9FF);
+    border: 1px solid #C4E8F9;
+    padding: 22px;
+    border-radius: 22px;
+    position: relative; overflow: hidden;
+  }
+  .swim-card h4 { font-family: 'DM Serif Display', serif; font-size: 22px; font-weight: 400; margin-bottom: 8px;}
+  .swim-card ul { list-style: none; margin-top: 14px; display: grid; gap: 8px; }
+  .swim-card li {
+    padding: 10px 14px; background: rgba(255,255,255,0.75); border-radius: 12px;
+    font-size: 13px; color: var(--ink-2); font-weight: 500;
+    display: flex; justify-content: space-between;
+  }
+  .swim-card li b { color: #1F6FB0; font-weight: 700; font-size: 12px; }
+  .swim-card::after {
+    content: ""; position: absolute; right: -40px; top: -40px;
+    width: 180px; height: 180px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(109,196,235,0.45), transparent 70%);
+  }
 
-        .fix-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--success);
-            font-weight: bold;
-        }
+  .diet-grid { display: grid; gap: 10px; margin-top: 12px; }
+  .diet-row {
+    display: grid; grid-template-columns: 100px 1fr; gap: 14px;
+    padding: 14px; border-radius: 16px;
+    background: #fff; border: 1px solid var(--line);
+    align-items: center;
+  }
+  .diet-row .time { font-weight: 700; font-size: 13px; color: var(--rose-deep); letter-spacing: 0.5px; }
+  .diet-row .meal { font-size: 13px; color: var(--ink-2); }
+  .diet-row .meal b { color: var(--ink-1); }
 
-        /* SECTION HEADERS */
-        .section-header {
-            text-align: center;
-            margin: 4rem 0 2rem;
-        }
+  .timeline {
+    display: grid; gap: 2px; margin-top: 16px;
+    position: relative;
+  }
+  .tl-item {
+    display: grid; grid-template-columns: 80px 1fr;
+    gap: 14px; align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .tl-item:last-child { border-bottom: 0; }
+  .tl-time { font-weight: 700; font-size: 13px; color: var(--rose-deep); letter-spacing: 0.4px;}
+  .tl-desc { font-size: 14px; color: var(--ink-1); }
+  .tl-desc small { display: block; font-size: 12px; color: var(--ink-3); margin-top: 2px; font-weight: 500; }
 
-        .section-header h2 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
+  /* ---------- BADGES ---------- */
+  .badges { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+  .badge {
+    padding: 16px 10px; text-align: center;
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 18px;
+  }
+  .badge .icon {
+    width: 46px; height: 46px; margin: 0 auto 8px;
+    border-radius: 16px; display: grid; place-items: center;
+    font-size: 22px; color: #fff;
+  }
+  .badge.earned .icon { background: linear-gradient(135deg, var(--gold), var(--peach)); }
+  .badge .icon { background: #F1EAF3; color: var(--ink-3); }
+  .badge small { font-size: 11px; color: var(--ink-3); font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; }
+  .badge b { display: block; font-size: 13px; margin-top: 2px; }
 
-        .section-header p {
-            color: var(--text-light);
-        }
+  /* ---------- CHECKLIST ---------- */
+  .check-list { display: grid; gap: 10px; margin-top: 12px; }
+  .check-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px;
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 14px;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+    transition: all .2s ease;
+  }
+  .check-item .box {
+    width: 22px; height: 22px; border-radius: 7px;
+    border: 2px solid #E2D5E0; flex: none;
+    display: grid; place-items: center;
+    color: #fff;
+    transition: all .2s ease;
+  }
+  .check-item.done { background: linear-gradient(135deg, #FFF0F5, #fff); }
+  .check-item.done .box { background: var(--rose-deep); border-color: var(--rose-deep); }
+  .check-item.done .label { text-decoration: line-through; color: var(--ink-3); }
 
-        /* TIMELINE */
-        .timeline {
-            position: relative;
-            padding-left: 2rem;
-        }
+  /* ---------- FACE YOGA LIST (mini) ---------- */
+  .mini-list { display: grid; gap: 10px; margin-top: 12px;}
+  .mini-row {
+    display: grid; grid-template-columns: 50px 1fr auto; gap: 12px; align-items: center;
+    padding: 10px 12px 10px 10px; background: #fff; border-radius: 14px; border: 1px solid var(--line);
+  }
+  .mini-thumb {
+    width: 50px; height: 50px; border-radius: 12px;
+    background-size: cover; background-position: center;
+    background-color: #F5EDF4;
+  }
+  .mini-row h5 { font-size: 13px; font-weight: 700;}
+  .mini-row small { font-size: 11px; color: var(--ink-3); }
+  .mini-row button {
+    border: 0; background: #FFF0F5; color: var(--rose-deep);
+    font-weight: 700; font-size: 11px;
+    padding: 8px 12px; border-radius: 10px;
+    cursor: pointer; font-family: inherit;
+    letter-spacing: 0.3px;
+  }
 
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, var(--primary), var(--accent));
-        }
+  /* ---------- BOTTOM NAV ---------- */
+  nav.bottom {
+    position: fixed;
+    left: 50%; transform: translateX(-50%);
+    bottom: 16px;
+    display: flex; gap: 4px;
+    padding: 8px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 999px;
+    box-shadow: 0 16px 40px -14px rgba(168,100,140,0.35);
+    border: 1px solid var(--line);
+    z-index: 50;
+  }
+  nav.bottom button {
+    border: 0; background: transparent;
+    padding: 10px 14px;
+    font-family: inherit;
+    font-size: 12px; font-weight: 700;
+    color: var(--ink-3);
+    border-radius: 999px;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: all .25s ease;
+  }
+  nav.bottom button .nav-ico { font-size: 14px; }
+  nav.bottom button.active {
+    background: linear-gradient(135deg, var(--rose), var(--peach));
+    color: #fff;
+    box-shadow: 0 8px 18px -10px rgba(232,92,133,0.55);
+  }
+  body.period-mode nav.bottom button.active {
+    background: linear-gradient(135deg, var(--rose-deep), var(--rose));
+  }
 
-        .timeline-item {
-            position: relative;
-            margin-bottom: 2rem;
-            background: var(--surface);
-            padding: 1.5rem;
-            border-radius: 16px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
-        }
+  /* ---------- MODAL ---------- */
+  .modal-wrap {
+    position: fixed; inset: 0;
+    background: rgba(42,27,53,0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: none;
+    z-index: 100;
+    padding: 16px;
+    align-items: flex-start; justify-content: center;
+    overflow-y: auto;
+  }
+  .modal-wrap.open { display: flex; }
+  .modal {
+    background: #fff;
+    width: 100%;
+    max-width: 760px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px -20px rgba(42,27,53,0.45);
+    margin: 24px auto;
+  }
+  .modal-video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+  .modal-video iframe { width: 100%; height: 100%; border: 0; display: block;}
+  .modal-body { padding: 24px; }
+  .modal-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;}
+  .modal-head h3 { font-family: 'DM Serif Display', serif; font-size: 24px; font-weight: 400; line-height: 1.1; }
+  .close {
+    border: 0; background: #F1EAF3; color: var(--ink-2);
+    width: 34px; height: 34px; border-radius: 50%; cursor: pointer;
+    font-size: 18px; font-weight: 600;
+  }
+  .ref-imgs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0 20px;}
+  .ref-img {
+    aspect-ratio: 4/3;
+    border-radius: 14px; background-size: cover; background-position: center;
+    background-color: #F6EEFF; position: relative; overflow: hidden;
+  }
+  .ref-img span {
+    position: absolute; bottom: 8px; left: 8px;
+    background: rgba(0,0,0,0.55); color: #fff;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.6px;
+    padding: 4px 8px; border-radius: 999px; text-transform: uppercase;
+  }
 
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -2.5rem;
-            top: 1.5rem;
-            width: 12px;
-            height: 12px;
-            background: var(--primary);
-            border-radius: 50%;
-            border: 3px solid var(--bg);
-        }
+  /* Fallback / trusted-source link bar */
+  .fallback-bar {
+    display: flex; gap: 8px; margin: 0 0 18px;
+    flex-wrap: wrap;
+  }
+  .fallback-bar a {
+    flex: 1 1 auto;
+    text-decoration: none;
+    text-align: center;
+    padding: 11px 14px;
+    border-radius: 12px;
+    font-size: 13px; font-weight: 700;
+    background: #FFF2F6;
+    color: var(--rose-deep);
+    border: 1px solid var(--line);
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    transition: transform .15s ease;
+    min-width: 0;
+  }
+  .fallback-bar a:hover { transform: translateY(-1px); }
+  .fallback-bar a.primary {
+    background: linear-gradient(135deg, #FF0000, #CC0000);
+    color: #fff;
+    border: 0;
+  }
+  .fallback-bar a.lav {
+    background: linear-gradient(135deg, #6E55C2, var(--lavender));
+    color: #fff;
+    border: 0;
+  }
+  .trust-note {
+    font-size: 11px; color: var(--ink-3);
+    margin: -6px 0 14px; letter-spacing: 0.3px;
+  }
+  .trust-note b { color: var(--ink-2); }
 
-        .time-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
+  /* Fallback pill on exercise card */
+  .ex-thumb .fallback-yt {
+    position: absolute; top: 12px; right: 12px; z-index: 2;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.95);
+    display: grid; place-items: center;
+    color: #CC0000; font-size: 13px;
+    text-decoration: none; font-weight: 700;
+    box-shadow: 0 4px 12px -6px rgba(0,0,0,0.35);
+  }
+  .modal h4 {
+    font-size: 13px; text-transform: uppercase; letter-spacing: 1.4px;
+    color: var(--ink-3); margin: 14px 0 8px; font-weight: 700;
+  }
+  .steps { counter-reset: step; list-style: none; display: grid; gap: 8px;}
+  .steps li {
+    counter-increment: step;
+    background: #FFF6FA;
+    border-radius: 12px;
+    padding: 10px 14px 10px 42px;
+    position: relative; font-size: 14px; color: var(--ink-2);
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    width: 22px; height: 22px;
+    background: linear-gradient(135deg, var(--rose), var(--peach));
+    color: #fff; border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 12px; font-weight: 700;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  .mistakes { display: grid; gap: 8px; list-style: none;}
+  .mistakes li {
+    background: #FFF0F0;
+    border-left: 3px solid #E8748E;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 13px; color: var(--ink-2);
+  }
+  .mistakes li::before {
+    content: "⚠  ";
+    color: #E8748E; font-weight: 700;
+  }
 
-        .timeline-item h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
+  /* ---------- TOAST ---------- */
+  .toast {
+    position: fixed;
+    top: 24px; left: 50%; transform: translateX(-50%) translateY(-20px);
+    background: #fff;
+    padding: 12px 20px;
+    border-radius: 999px;
+    box-shadow: 0 12px 30px -10px rgba(42,27,53,0.3);
+    font-size: 13px; font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: all .3s ease;
+    z-index: 200;
+    border: 1px solid var(--line);
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0);}
 
-        /* WORKOUT TABS */
-        .workout-tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
+  /* Reveal animation */
+  .reveal { opacity: 0; transform: translateY(8px); transition: all .4s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
 
-        .tab-btn {
-            padding: 0.6rem 1.2rem;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            background: var(--surface);
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            color: var(--text);
-        }
+  /* Emotional panel variants */
+  .emo-card {
+    border-radius: 20px; padding: 18px;
+    background: linear-gradient(135deg, #FFE7EE, #F6EEFF);
+    border: 1px solid #FFD6E1;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .emo-card .e-ico {
+    width: 42px; height: 42px; flex: none;
+    border-radius: 14px; background: #fff;
+    display: grid; place-items: center; font-size: 20px;
+  }
+  .emo-card h5 { font-size: 14px; margin-bottom: 4px; }
+  .emo-card p { font-size: 13px; color: var(--ink-2); line-height: 1.5; }
 
-        .tab-btn:hover {
-            border-color: var(--primary-light);
-            background: rgba(99, 102, 241, 0.05);
-        }
+  /* Hidden section toggle */
+  section.hidden-pane { display: none; }
 
-        .tab-btn.active {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .workout-content {
-            display: none;
-        }
-
-        .workout-content.active {
-            display: block;
-            animation: fadeIn 0.4s;
-        }
-
-        /* EXERCISE CARDS */
-        .exercise-card {
-            background: linear-gradient(135deg, #f8fafc, #ffffff);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            transition: all 0.3s;
-        }
-
-        .exercise-card:hover {
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            border-color: var(--primary-light);
-        }
-
-        .exercise-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .exercise-card h4 {
-            font-size: 1.2rem;
-            color: var(--text);
-        }
-
-        .demo-btn {
-            background: linear-gradient(135deg, var(--accent), #fbbf24);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: transform 0.2s;
-        }
-
-        .demo-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .exercise-details {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-        }
-
-        .visual-guide {
-            display: none;
-            margin-top: 1rem;
-            padding: 1rem;
-            background: white;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .visual-guide.active {
-            display: block;
-            animation: slideDown 0.3s;
-        }
-
-        .visual-guide img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-tips {
-            background: rgba(16, 185, 129, 0.1);
-            border-left: 3px solid var(--success);
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: var(--text);
-            margin-top: 0.5rem;
-        }
-
-        /* CHECKBOXES */
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem;
-            margin: 0.5rem 0;
-            border-radius: 8px;
-            transition: background 0.2s;
-            cursor: pointer;
-        }
-
-        .checkbox-item:hover {
-            background: rgba(99, 102, 241, 0.05);
-        }
-
-        .checkbox-item input {
-            display: none;
-        }
-
-        .custom-checkbox {
-            width: 24px;
-            height: 24px;
-            border: 2px solid var(--border);
-            border-radius: 6px;
-            margin-right: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .checkbox-item input:checked + .custom-checkbox {
-            background: linear-gradient(135deg, var(--success), #34d399);
-            border-color: var(--success);
-        }
-
-        .checkbox-item input:checked + .custom-checkbox::after {
-            content: '✓';
-            color: white;
-            font-weight: bold;
-        }
-
-        .checkbox-item input:checked ~ span {
-            text-decoration: line-through;
-            color: var(--text-light);
-        }
-
-        /* DIET CARD */
-        .diet-card {
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-            border: 2px solid #fbbf24;
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-        }
-
-        .diet-card h4 {
-            font-size: 1.3rem;
-            margin-bottom: 0.75rem;
-            color: #92400e;
-        }
-
-        .diet-card p {
-            color: #78350f;
-            line-height: 1.8;
-        }
-
-        .diet-tip {
-            background: rgba(255,255,255,0.6);
-            padding: 0.75rem;
-            border-radius: 8px;
-            margin-top: 0.75rem;
-            font-size: 0.9rem;
-            font-style: italic;
-        }
-
-        /* ANIMATIONS */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; max-height: 0; }
-            to { opacity: 1; max-height: 500px; }
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .timeline { padding-left: 1.5rem; }
-            .timeline::before { left: 0; }
-            .timeline-item::before { left: -1.9rem; }
-            .exercise-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-        }
-    </style>
+  /* Section fade-in when switching tabs */
+  .pane-enter { animation: fadeUp .45s ease both; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>Jensi's Wellness Journey</h1>
-            <p class="subtitle">Face Slimming • Perfect Posture • Glowing Skin</p>
-        </header>
+<div class="app">
 
-        <!-- GOALS -->
-        <div class="goals-grid">
-            <div class="goal-card">
-                <div class="goal-icon">💧</div>
-                <h3>Face Slimming</h3>
-                <p>Reduce puffiness and reveal your natural bone structure</p>
-                <ul class="fix-list">
-                    <li>Face Yoga daily (Balloon Pose)</li>
-                    <li>Less salt after 6 PM</li>
-                    <li>Gentle face massage</li>
-                </ul>
-            </div>
+  <!-- ==================== TOP HEADER ==================== -->
+  <header class="top">
+    <div class="hi">
+      <h1>Good morning, love ✿</h1>
+      <p id="dateLabel">Monday · A gentle day awaits</p>
+    </div>
+    <div class="pill-row">
+      <span class="pill-mini streak"><span class="ico">★</span> <span id="streakVal">12</span> days</span>
+      <span class="pill-mini cycle" id="cyclePill"><span class="ico">♀</span> <span id="cycleLabel">Day 8 · Follicular</span></span>
+    </div>
+  </header>
 
-            <div class="goal-card">
-                <div class="goal-icon">🧘‍♀️</div>
-                <h3>Perfect Posture</h3>
-                <p>Stand tall and proud at 6ft with core strength</p>
-                <ul class="fix-list">
-                    <li>Wall Angels exercise</li>
-                    <li>Deep core work (Pilates)</li>
-                    <li>Target side fat</li>
-                </ul>
-            </div>
+  <!-- ==================== TODAY PANE ==================== -->
+  <section id="paneToday" class="pane-enter">
 
-            <div class="goal-card">
-                <div class="goal-icon">✨</div>
-                <h3>Glowing Skin</h3>
-                <p>Clear pimples, fade tan, brighten complexion</p>
-                <ul class="fix-list">
-                    <li>SPF 50 every 3 hours</li>
-                    <li>Anti-inflammatory diet</li>
-                    <li>Sleep by 10:30 PM</li>
-                </ul>
-            </div>
+    <!-- Hero mood card -->
+    <div class="hero card reveal">
+      <div class="hero-inner">
+        <div class="hero-date" id="heroDate">Today · April 17</div>
+        <h3 id="heroTitle">Your body is asking for softness today.</h3>
+        <p class="emotion" id="heroEmotion">Let's move gently and breathe deeply. Fat burn + a little magic — you've got this.</p>
+        <div class="chips">
+          <span class="chip soft-rose">🌸 Morning: Fat Burn</span>
+          <span class="chip soft-lav">🌙 Night: Sculpt + Posture</span>
+          <span class="chip soft-mint">🏊 Evening Swim · 30 min</span>
         </div>
-
-        <!-- DAILY ROUTINE -->
-        <div class="section-header">
-            <h2>Daily Routine</h2>
-            <p>Follow this schedule for best results</p>
-        </div>
-
-        <div class="timeline">
-            <!-- MORNING -->
-            <div class="timeline-item">
-                <span class="time-badge">7:00 AM</span>
-                <h3>Morning Ritual</h3>
-                
-                <label class="checkbox-item">
-                    <input type="checkbox">
-                    <div class="custom-checkbox"></div>
-                    <span>1 Glass Warm Water + Lemon (Flushes toxins)</span>
-                </label>
-
-                <label class="checkbox-item">
-                    <input type="checkbox">
-                    <div class="custom-checkbox"></div>
-                    <span>1 Amla (Vitamin C for skin)</span>
-                </label>
-
-                <div style="margin-top:1rem;">
-                    <strong>Face Yoga (5 Minutes)</strong>
-                    <button class="demo-btn" onclick="toggleDemo('face-yoga-demo')" style="border:none; cursor:pointer; margin-left:1rem;">
-                        👁️ See Visual
-                    </button>
-                    <div id="face-yoga-demo" class="visual-guide">
-                        <img src="images/face_yoga.png" alt="Face Yoga">
-                        <div class="form-tips">
-                            <strong>Balloon Pose:</strong> Puff cheeks with air, hold 10 seconds. Repeat 20 times. This drains water from face!
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- WORKOUT -->
-            <div class="timeline-item">
-                <span class="time-badge">7:10 AM</span>
-                <h3>Home Workout (45 Minutes)</h3>
-                <p style="color:var(--text-light); margin-bottom:1rem;">No equipment needed. Do in your room!</p>
-
-                <div class="workout-tabs">
-                    <button class="tab-btn active" onclick="openTab('mon')">Monday</button>
-                    <button class="tab-btn" onclick="openTab('tue')">Tuesday</button>
-                    <button class="tab-btn" onclick="openTab('wed')">Wednesday</button>
-                    <button class="tab-btn" onclick="openTab('thu')">Thursday</button>
-                    <button class="tab-btn" onclick="openTab('fri')">Friday</button>
-                </div>
-
-                <!-- MONDAY -->
-                <div id="mon" class="workout-content active">
-                    <h4 style="margin-bottom:1rem; color:var(--primary);">Core Deep Dive (Belly Fat)</h4>
-                    
-                    <div class="exercise-card">
-                        <div class="exercise-header">
-                            <h4>1. Plank Hold</h4>
-                            <a href="https://www.youtube.com/results?search_query=how+to+do+plank+correctly" target="_blank" class="demo-btn">
-                                ▶ Watch Video
-                            </a>
-                        </div>
-                        <p class="exercise-details">3 sets × 60 seconds</p>
-                        <div class="form-tips">
-                            <strong>Form:</strong> Keep body straight like a table. Don't let hips drop. Squeeze your glutes tight!
-                        </div>
-                    </div>
-
-                    <div class="exercise-card">
-                        <div class="exercise-header">
-                            <h4>2. Leg Raises</h4>
-                            <a href="https://www.youtube.com/results?search_query=leg+raises+exercise+tutorial" target="_blank" class="demo-btn">
-                                ▶ Watch Video
-                            </a>
-                        </div>
-                        <p class="exercise-details">3 sets × 15 reps</p>
-                        <div class="form-tips">
-                            <strong>Target:</strong> Lower belly pouch. Lift legs up and down slowly. Don't let feet touch floor!
-                        </div>
-                    </div>
-
-                    <div class="exercise-card">
-                        <div class="exercise-header">
-                            <h4>3. Dead Bugs</h4>
-                            <button class="demo-btn" onclick="toggleDemo('deadbug-demo')" style="border:none; cursor:pointer;">
-                                👁️ See Visual
-                            </button>
-                        </div>
-                        <div id="deadbug-demo" class="visual-guide">
-                            <img src="images/dead_bug.png" alt="Dead Bug Exercise">
-                            <div class="form-tips">
-                                Lie on back. Extend opposite arm and leg. Keep lower back pressed to floor. This flattens your stomach!
-                            </div>
-                        </div>
-                        <p class="exercise-details">3 sets × 20 reps (slow and controlled)</p>
-                    </div>
-                </div>
-
-                <!-- TUESDAY -->
-                <div id="tue" class="workout-content">
-                    <h4 style="margin-bottom:1rem; color:var(--primary);">Posture Lift (Stand Tall)</h4>
-                    
-                    <div class="exercise-card">
-                        <div class="exercise-header">
-                            <h4>1. Wall Angels</h4>
-                            <button class="demo-btn" onclick="toggleDemo('wallangel-demo')" style="border:none; cursor:pointer;">
-                                👁️ See Visual
-                            </button>
-                        </div>
-                        <div id="wallangel-demo" class="visual-guide">
-                            <img src="images/wall_angel.png" alt="Wall Angels">
-                            <div class="form-tips">
-                                Stand against wall. Slide arms up while keeping elbows touching wall. Opens rounded shoulders!
-                            </div>
-                        </div>
-                        <p class="exercise-details">3 sets × 15 reps</p>
-                    </div>
-
-                    <div class="exercise-card">
-                        <div class="exercise-header">
-                            <h4>2. Supermans</h4>
-                            <a href="https://www.youtube.com/results?search_query=superman+exercise+tutorial" target="_blank" class="demo-btn">
-                                ▶ Watch Video
-                            </a>
-                        </div>
-                        <p class="exercise-details">3 sets × 12 reps</p>
-                        <div class="form-tips">
-                            Lie on stomach. Lift chest and legs together. Strengthens lower back for better posture.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- WEDNESDAY -->
-                <div id="wed" class="workout-content">
-                    <h4 style="margin-bottom:1rem; color:var(--primary);">Sweat & Detox (Face Slimming)</h4>
-                    
-                    <div class="exercise-card">
-                        <div class="exercise-header">
-                            <h4>1. Jumping Jacks</h4>
-                            <a href="https://www.youtube.com/results?search_query=jumping+jacks+tutorial" target="_blank" class="demo-btn">
-                                ▶ Watch Video
-                            </a>
-                        </div>
-                        <p class="exercise-details">3 minutes total</p>
-                        <div class="form-tips">
-                            Gets blood flowing to reduce puffy face. Jump and clap above head!
-                        </div>
-                    </div>
-
-                    <div class="exercise-card">
-                        <div class="exercise-header">
-                            <h4>2. Mountain Climbers</h4>
-                            <a href="https://www.youtube.com/results?search_query=mountain+climbers+exercise" target="_blank" class="demo-btn">
-                                ▶ Watch Video
-                            </a>
-                        </div>
-                        <p class="exercise-details">3 sets × 30 seconds</p>
-                        <div class="form-tips">
-                            Like running in plank position. Burns calories fast!
-                        </div>
-                    </div>
-                </div>
-
-                <!-- THURSDAY -->
-                <div id="thu" class="workout-content">
-                    <h4 style="margin-bottom:1rem; color:var(--primary);">Waist Snatcher (Side Fat)</h4>
-                    
-                    <div class="exercise-card">
-                        <div class="exercise-header">
-                            <h4>1. Russian Twists</h4>
-                            <a href="https://www.youtube.com/results?search_query=russian+twist+tutorial" target="_blank" class="demo-btn">
-                                ▶ Watch Video
-                            </a>
-                        </div>
-                        <p class="exercise-details">3 sets × 20 reps</p>
-                        <div class="form-tips">
-                            Sit and twist torso side to side. Targets love handles and side fat!
-                        </div>
-                    </div>
-
-                    <div class="exercise-card">
-                        <div class="exercise-header">
-                            <h4>2. Side Planks</h4>
-                            <a href="https://www.youtube.com/results?search_query=side+plank+tutorial" target="_blank" class="demo-btn">
-                                ▶ Watch Video
-                            </a>
-                        </div>
-                        <p class="exercise-details">3 sets × 30 seconds each side</p>
-                        <div class="form-tips">
-                            Hold body sideways on one arm. Best for waist definition!
-                        </div>
-                    </div>
-                </div>
-
-                <!-- FRIDAY -->
-                <div id="fri" class="workout-content">
-                    <h4 style="margin-bottom:1rem; color:var(--primary);">Pilates Full Body</h4>
-                    
-                    <div class="exercise-card">
-                        <div class="exercise-header">
-                            <h4>1. Glute Bridges</h4>
-                            <a href="https://www.youtube.com/results?search_query=glute+bridge+tutorial" target="_blank" class="demo-btn">
-                                ▶ Watch Video
-                            </a>
-                        </div>
-                        <p class="exercise-details">3 sets × 20 reps</p>
-                        <div class="form-tips">
-                            Lie on back, lift hips high. Squeeze glutes at top. Tones lower body!
-                        </div>
-                    </div>
-
-                    <div class="exercise-card">
-                        <div class="exercise-header">
-                            <h4>2. Donkey Kicks</h4>
-                            <a href="https://www.youtube.com/results?search_query=donkey+kicks+exercise" target="_blank" class="demo-btn">
-                                ▶ Watch Video
-                            </a>
-                        </div>
-                        <p class="exercise-details">3 sets × 15 reps each leg</p>
-                        <div class="form-tips">
-                            On hands and knees, kick leg back. Great for glutes and posture!
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SKINCARE -->
-            <div class="timeline-item">
-                <span class="time-badge">8:20 AM</span>
-                <h3>Skin Defense</h3>
-                
-                <label class="checkbox-item">
-                    <input type="checkbox">
-                    <div class="custom-checkbox"></div>
-                    <span>Face Wash (Gentle)</span>
-                </label>
-
-                <label class="checkbox-item">
-                    <input type="checkbox">
-                    <div class="custom-checkbox"></div>
-                    <span>Ice Roller (2 mins - Reduces puffiness)</span>
-                </label>
-
-                <label class="checkbox-item">
-                    <input type="checkbox">
-                    <div class="custom-checkbox"></div>
-                    <span>Vitamin C Serum (Fades dark spots)</span>
-                </label>
-
-                <label class="checkbox-item">
-                    <input type="checkbox">
-                    <div class="custom-checkbox"></div>
-                    <span>SPF 50 Sunscreen (MOST IMPORTANT!)</span>
-                </label>
-            </div>
-
-            <!-- LUNCH -->
-            <div class="timeline-item">
-                <span class="time-badge">1:00 PM</span>
-                <h3>Gujarati Lunch (Ghar Nu Jaman)</h3>
-                
-                <div class="diet-card">
-                    <h4>🥗 Anti-Bloat Meal</h4>
-                    <p>
-                        <strong>1 Bajra Rotla</strong> (better than wheat)<br>
-                        <strong>1 Bowl Moong/Chana</strong> (protein)<br>
-                        <strong>Cucumber Salad</strong> (no salt)<br>
-                        <strong>Chaas</strong> (buttermilk, no salt)
-                    </p>
-                    <div class="diet-tip">
-                        ⚠️ Avoid: Fried Farsan, excess Pickle (Athanu), too much oil in Dal
-                    </div>
-                </div>
-
-                <label class="checkbox-item">
-                    <input type="checkbox">
-                    <div class="custom-checkbox"></div>
-                    <span>Drink 3L Water Today (Set hourly reminders)</span>
-                </label>
-            </div>
-
-            <!-- DINNER -->
-            <div class="timeline-item">
-                <span class="time-badge">9:00 PM</span>
-                <h3>Light Dinner</h3>
-                
-                <div class="diet-card">
-                    <h4>🍲 Easy Digestion</h4>
-                    <p>
-                        <strong>Option 1:</strong> Khichdi + Kadhi (light)<br>
-                        <strong>Option 2:</strong> Moong Soup / Vegetable Soup
-                    </p>
-                    <div class="diet-tip">
-                        ❌ Avoid: Potato Shak, Maida (Pizza/Burger), Heavy Sweets
-                    </div>
-                </div>
-
-                <label class="checkbox-item">
-                    <input type="checkbox">
-                    <div class="custom-checkbox"></div>
-                    <span>Doctor's Cream on dark spots</span>
-                </label>
-
-                <label class="checkbox-item">
-                    <input type="checkbox">
-                    <div class="custom-checkbox"></div>
-                    <span>Haldi Doodh (Turmeric Milk - Heals pimples!)</span>
-                </label>
-            </div>
-
-            <!-- SLEEP -->
-            <div class="timeline-item">
-                <span class="time-badge">10:45 PM</span>
-                <h3>Sleep Time</h3>
-                
-                <label class="checkbox-item">
-                    <input type="checkbox">
-                    <div class="custom-checkbox"></div>
-                    <span>Sleep on back (prevents face wrinkles)</span>
-                </label>
-
-                <label class="checkbox-item">
-                    <input type="checkbox">
-                    <div class="custom-checkbox"></div>
-                    <span>Phone away, dark room</span>
-                </label>
-            </div>
-        </div>
+      </div>
     </div>
 
-    <script>
-        // Tab switching
-        function openTab(day) {
-            // Hide all
-            document.querySelectorAll('.workout-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Deactivate all buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Show selected
-            document.getElementById(day).classList.add('active');
-            
-            // Activate button
-            event.target.classList.add('active');
-        }
+    <!-- Workout toggle -->
+    <section>
+      <div class="section-head" style="margin-top:24px;">
+        <div>
+          <h2>Today's Workouts</h2>
+          <small>Two sessions · Your pace</small>
+        </div>
+        <div class="toggle" id="timeToggle">
+          <button class="active" data-time="morning">☀ Morning</button>
+          <button data-time="night" class="night">🌙 Night</button>
+        </div>
+      </div>
 
-        // Toggle visual guides
-        function toggleDemo(id) {
-            const element = document.getElementById(id);
-            if (element) {
-                element.classList.toggle('active');
-            }
-        }
+      <!-- Level tiles -->
+      <div class="levels" id="levelTiles">
+        <div class="level-tile active" data-level="1"><div class="num">01</div><div class="lb">Gentle Start</div></div>
+        <div class="level-tile" data-level="2"><div class="num">02</div><div class="lb">Warming Up</div></div>
+        <div class="level-tile" data-level="3"><div class="num">03</div><div class="lb">Glowing Flow</div></div>
+        <div class="level-tile" data-level="4"><div class="num">04</div><div class="lb">Strong &amp; Soft</div></div>
+      </div>
 
-        // Scroll reveal animation
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
+      <!-- Exercise grid -->
+      <div class="ex-grid" id="exGrid"></div>
+    </section>
 
-        document.querySelectorAll('.timeline-item, .goal-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
-        });
-    </script>
+    <!-- Quick stats -->
+    <section>
+      <div class="section-head">
+        <h2>Your week, so far</h2>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="lb">Streak</div>
+          <div class="v">12 days</div>
+          <div class="sub">You've shown up beautifully.</div>
+        </div>
+        <div class="stat lav">
+          <div class="lb">Swim Sessions</div>
+          <div class="v">4 / 5</div>
+          <div class="sub">One more splash to go!</div>
+        </div>
+        <div class="stat mint">
+          <div class="lb">Workouts Done</div>
+          <div class="v">11</div>
+          <div class="sub">Morning + Night combined</div>
+        </div>
+        <div class="stat">
+          <div class="lb">Current Level</div>
+          <div class="v">Lv 2</div>
+          <div class="sub">Warming Up phase</div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ==================== WORKOUTS PANE ==================== -->
+  <section id="paneWorkouts" class="hidden-pane">
+    <div class="section-head">
+      <div>
+        <h2>The Full Plan</h2>
+        <small>Morning fat burn · Night sculpt &amp; posture</small>
+      </div>
+    </div>
+
+    <div class="card" style="padding:22px;">
+      <h3 style="font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;">☀  Morning — Fat Burn (25–30 min)</h3>
+      <p style="font-size:13px;color:var(--ink-3); margin-top:6px;">Wake up · sip warm water · 5 min light stretch · then:</p>
+      <ul style="list-style:none; margin-top:12px; display:grid; gap:8px;">
+        <li style="padding:10px 14px; background:#FFF6FA; border-radius:12px; font-size:13px;">🧘‍♀️  Surya Namaskar — 5 rounds (slow &amp; breath-led)</li>
+        <li style="padding:10px 14px; background:#FFF6FA; border-radius:12px; font-size:13px;">🔥  Core circuit — Bicycle crunch + Russian twist + Plank</li>
+        <li style="padding:10px 14px; background:#FFF6FA; border-radius:12px; font-size:13px;">💃  Love-handle burner — Standing side crunch + Side plank dip</li>
+        <li style="padding:10px 14px; background:#FFF6FA; border-radius:12px; font-size:13px;">🦵  Thigh slimmer — Sumo squat pulse + Inner-thigh lifts</li>
+      </ul>
+    </div>
+
+    <div class="card" style="padding:22px; margin-top:16px;">
+      <h3 style="font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;">🌙  Night — Sculpt, Posture &amp; Face Yoga (20 min)</h3>
+      <p style="font-size:13px;color:var(--ink-3); margin-top:6px;">After sunset · calm music · soft light:</p>
+      <ul style="list-style:none; margin-top:12px; display:grid; gap:8px;">
+        <li style="padding:10px 14px; background:#F6EEFF; border-radius:12px; font-size:13px;">💪  Arm sculpt — Triceps dips + Shoulder circles + Wall push</li>
+        <li style="padding:10px 14px; background:#F6EEFF; border-radius:12px; font-size:13px;">🦢  Neck-hump fix — Chin tucks + Doorway pec stretch + Cat-cow</li>
+        <li style="padding:10px 14px; background:#F6EEFF; border-radius:12px; font-size:13px;">✨  Face yoga — Jawline glide + Cheek lifter + Forehead smoother</li>
+        <li style="padding:10px 14px; background:#F6EEFF; border-radius:12px; font-size:13px;">🌸  Child's pose + deep breathing — 3 min wind-down</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ==================== CYCLE PANE ==================== -->
+  <section id="paneCycle" class="hidden-pane">
+    <div class="section-head">
+      <div>
+        <h2>Your Cycle</h2>
+        <small>Period window: 23 – 25 each month</small>
+      </div>
+      <button class="btn ghost" id="togglePeriod" style="padding:8px 14px;">Toggle Period Mode</button>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;">This month at a glance</h3>
+        <p style="font-size:13px;color:var(--ink-3); margin-top:4px;">April 2026</p>
+
+        <div class="cal">
+          <div class="wd">Mon</div><div class="wd">Tue</div><div class="wd">Wed</div><div class="wd">Thu</div>
+          <div class="wd">Fri</div><div class="wd">Sat</div><div class="wd">Sun</div>
+        </div>
+        <div class="cal" id="calGrid"></div>
+
+        <div class="legend">
+          <div><i style="background:#FFB6CC;"></i>Period (23–25)</div>
+          <div><i style="background:#FFE9F0;"></i>Low intensity</div>
+          <div><i style="background:#E8F7EE;"></i>Normal training</div>
+          <div><i style="background:#fff; border:1px solid var(--line);"></i>Rest / light</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="phase-panel">
+          <div class="em">💗</div>
+          <div>
+            <h5 id="phaseTitle">You're in your Follicular phase</h5>
+            <p id="phaseDesc">Your energy is rising, lovely. This is a great time for building strength. Surya Namaskar + light HIIT will feel amazing.</p>
+          </div>
+        </div>
+
+        <div class="emo-card" style="margin-top:14px;">
+          <div class="e-ico">🌷</div>
+          <div>
+            <h5>Emotional Support</h5>
+            <p>If you feel tender, that's okay. Soften your plan without guilt — rest is a form of training too.</p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px;">
+          <h5 style="font-size:13px;text-transform:uppercase;letter-spacing:1.4px;color:var(--ink-3); margin-bottom:10px;">Iron-rich foods today</h5>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;">
+            <div style="text-align:center; padding:10px 6px; background:#FFF0F5; border-radius:14px; font-size:12px; font-weight:600;">🥬 Spinach</div>
+            <div style="text-align:center; padding:10px 6px; background:#FFF0F5; border-radius:14px; font-size:12px; font-weight:600;">🫘 Rajma</div>
+            <div style="text-align:center; padding:10px 6px; background:#FFF0F5; border-radius:14px; font-size:12px; font-weight:600;">🌰 Dates</div>
+            <div style="text-align:center; padding:10px 6px; background:#FFF0F5; border-radius:14px; font-size:12px; font-weight:600;">🫐 Beetroot</div>
+            <div style="text-align:center; padding:10px 6px; background:#FFF0F5; border-radius:14px; font-size:12px; font-weight:600;">🌰 Sesame</div>
+            <div style="text-align:center; padding:10px 6px; background:#FFF0F5; border-radius:14px; font-size:12px; font-weight:600;">🌿 Methi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FLOW PANE (swim/diet/face/posture/timeline) ==================== -->
+  <section id="paneFlow" class="hidden-pane">
+    <div class="section-head">
+      <div>
+        <h2>Your Daily Flow</h2>
+        <small>Swim · Diet · Posture · Face yoga</small>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="swim-card">
+        <h4>🏊 Swim Fat-Burn Plan</h4>
+        <p style="font-size:13px;color:#1F6FB0;">Evenings · 30 min · 4–5×/week</p>
+        <ul>
+          <li>Mon — Freestyle easy pace <b>20 min</b></li>
+          <li>Tue — Breaststroke + core drills <b>25 min</b></li>
+          <li>Wed — Interval (1 fast / 2 slow) <b>20 min</b></li>
+          <li>Fri — Long steady swim <b>30 min</b></li>
+          <li>Sat — Water aerobics + legs <b>25 min</b></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4 style="font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;">🥗 Vegetarian Fat-Loss Diet</h4>
+        <div class="diet-grid">
+          <div class="diet-row"><div class="time">7:30 AM</div><div class="meal"><b>Warm water</b> + soaked almonds, dates, walnuts, chia, black sesame smoothie</div></div>
+          <div class="diet-row"><div class="time">10:30 AM</div><div class="meal"><b>Fruit bowl</b> — papaya, pomegranate, apple</div></div>
+          <div class="diet-row"><div class="time">1:00 PM</div><div class="meal"><b>1 roti + small rice</b> + dal + sabzi + buttermilk</div></div>
+          <div class="diet-row"><div class="time">4:30 PM</div><div class="meal"><b>Fruits + green tea</b> pre-swim</div></div>
+          <div class="diet-row"><div class="time">6:00 PM</div><div class="meal"><b>Coconut water</b> post-swim</div></div>
+          <div class="diet-row"><div class="time">8:00 PM</div><div class="meal"><b>Light dinner</b> — moong dal chilla / vegetable soup + salad</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:20px;">
+      <div class="card">
+        <h4 style="font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;">✨ Face Yoga — 5 min</h4>
+        <div class="mini-list" id="faceYogaList"></div>
+      </div>
+
+      <div class="card">
+        <h4 style="font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;">🦢 Posture Reset — 5 min</h4>
+        <div class="mini-list" id="postureList"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <h4 style="font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;">🌿 Daily Timeline</h4>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-time">7:00 AM</div><div class="tl-desc">Wake, warm water <small>Set a gentle intention</small></div></div>
+        <div class="tl-item"><div class="tl-time">7:30 AM</div><div class="tl-desc">Morning Workout — Fat Burn <small>Surya Namaskar + core + love handles</small></div></div>
+        <div class="tl-item"><div class="tl-time">8:30 AM</div><div class="tl-desc">Power smoothie <small>Almonds, dates, walnuts, chia, black sesame</small></div></div>
+        <div class="tl-item"><div class="tl-time">1:00 PM</div><div class="tl-desc">Lunch <small>1 roti + small rice + buttermilk</small></div></div>
+        <div class="tl-item"><div class="tl-time">4:30 PM</div><div class="tl-desc">Fruits + light snack <small>Prepare for swim</small></div></div>
+        <div class="tl-item"><div class="tl-time">5:30 PM</div><div class="tl-desc">🏊 Swimming session <small>30 min · 4–5 days/week</small></div></div>
+        <div class="tl-item"><div class="tl-time">6:15 PM</div><div class="tl-desc">Coconut water + rest <small>Replenish minerals</small></div></div>
+        <div class="tl-item"><div class="tl-time">8:30 PM</div><div class="tl-desc">🌙 Night Workout — Sculpt &amp; Posture <small>Arms + face yoga + chin tucks</small></div></div>
+        <div class="tl-item"><div class="tl-time">11:00 PM</div><div class="tl-desc">Sleep · soft music · gratitude <small>Your body rebuilds now</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROGRESS PANE ==================== -->
+  <section id="paneProgress" class="hidden-pane">
+    <div class="section-head">
+      <div>
+        <h2>Your Progress</h2>
+        <small>Streaks · Badges · Daily checklist</small>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="lb">Current Level</div><div class="v">Lv 2</div><div class="sub">Warming Up · 8 days to Lv 3</div></div>
+      <div class="stat lav"><div class="lb">Streak</div><div class="v">12 🔥</div><div class="sub">Personal best: 18 days</div></div>
+      <div class="stat mint"><div class="lb">Total Workouts</div><div class="v">34</div><div class="sub">Morning 18 · Night 16</div></div>
+      <div class="stat"><div class="lb">Swim Minutes</div><div class="v">420</div><div class="sub">This month</div></div>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <h4 style="font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;">🏅 Badges</h4>
+      <div class="badges">
+        <div class="badge earned"><div class="icon">🌸</div><b>First Bloom</b><small>Day 1 done</small></div>
+        <div class="badge earned"><div class="icon">🔥</div><b>Week of Fire</b><small>7-day streak</small></div>
+        <div class="badge earned"><div class="icon">🧘</div><b>Yogi Soul</b><small>10 Surya Namaskar</small></div>
+        <div class="badge"><div class="icon">💎</div><b>Iron Core</b><small>Lv 3 unlock</small></div>
+        <div class="badge"><div class="icon">🏊</div><b>Mermaid</b><small>20 swims</small></div>
+        <div class="badge"><div class="icon">✨</div><b>Glow-Up</b><small>30 day streak</small></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <h4 style="font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;">✓ Today's Checklist</h4>
+      <div class="check-list" id="checkList"></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ==================== BOTTOM NAV ==================== -->
+<nav class="bottom" id="navBottom">
+  <button class="active" data-pane="paneToday"><span class="nav-ico">🌸</span> Today</button>
+  <button data-pane="paneWorkouts"><span class="nav-ico">💪</span> Workouts</button>
+  <button data-pane="paneCycle"><span class="nav-ico">♀</span> Cycle</button>
+  <button data-pane="paneFlow"><span class="nav-ico">🌿</span> Flow</button>
+  <button data-pane="paneProgress"><span class="nav-ico">✨</span> Progress</button>
+</nav>
+
+<!-- ==================== MODAL ==================== -->
+<div class="modal-wrap" id="modalWrap">
+  <div class="modal">
+    <div class="modal-video"><iframe id="ytFrame" src="" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    <div class="modal-body">
+      <div class="modal-head">
+        <div>
+          <h3 id="mTitle">Exercise</h3>
+          <p style="font-size:13px;color:var(--ink-3);margin-top:4px;" id="mSub">Watch before you start</p>
+        </div>
+        <button class="close" id="modalClose">✕</button>
+      </div>
+
+      <p class="trust-note" id="mTrust">
+        <b>Trusted source:</b> MadFit · Chloe Ting · Yoga with Adriene · certified trainers only.
+      </p>
+
+      <div class="fallback-bar">
+        <a id="mWatchYT" href="#" target="_blank" rel="noopener" class="primary">▶ Open on YouTube</a>
+        <a id="mSearchYT" href="#" target="_blank" rel="noopener">🔍 Backup search</a>
+      </div>
+
+      <h4>Form references</h4>
+      <div class="ref-imgs" id="mRefImgs"></div>
+
+      <h4>Step-by-step</h4>
+      <ol class="steps" id="mSteps"></ol>
+
+      <h4>Common mistakes</h4>
+      <ul class="mistakes" id="mMistakes"></ul>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   EXERCISE DATA — each has YouTube search link + image refs +
+   steps + mistakes. Images pulled from Unsplash source URLs
+   (real photos, keyword-driven).
+   ============================================================ */
+const EX = {
+  morning: [
+    {
+      id: "surya", name: "Surya Namaskar",
+      tag: "Warm-up", meta: ["5 rounds", "8 min", "Full body"],
+      yt: "73sjOu0g58M",
+      source: "Lily Cushman (certified yoga)",
+      ytSearch: "surya namaskar beginners yoga with adriene",
+      refLabels: ["Start", "Mid", "End"],
+      steps: [
+        "Stand tall at the front of your mat, palms at heart center.",
+        "Inhale — sweep arms overhead, gentle backbend.",
+        "Exhale — fold forward, soften your knees if needed.",
+        "Step back into plank, lower to cobra, lift to downward dog.",
+        "Step forward and rise up, returning to namaste."
+      ],
+      mistakes: [
+        "Holding your breath instead of flowing with inhale/exhale",
+        "Locking your knees on the forward fold",
+        "Collapsing shoulders in downward dog"
+      ]
+    },
+    {
+      id: "bicycle", name: "Bicycle Crunch",
+      tag: "Belly burn", meta: ["3 × 20", "4 min", "Core"],
+      yt: "9FGilxCbdz8",
+      source: "LIVESTRONG (certified trainer)",
+      ytSearch: "bicycle crunch proper form madfit",
+      refLabels: ["Start", "Mid", "End"],
+      steps: [
+        "Lie flat, lower back pressed into the mat, fingertips behind ears.",
+        "Lift shoulder blades and draw right elbow to left knee.",
+        "Switch sides smoothly — extend opposite leg straight.",
+        "Keep the motion slow and breath-led, not rushed."
+      ],
+      mistakes: [
+        "Yanking the neck with your hands",
+        "Going fast and losing core engagement",
+        "Lower back lifting off the floor"
+      ]
+    },
+    {
+      id: "side-plank", name: "Side Plank Dip",
+      tag: "Love handles", meta: ["3 × 12 each", "5 min", "Obliques"],
+      yt: "K2VljzCC16g",
+      source: "Howcast (certified trainer)",
+      ytSearch: "side plank hip dip chloe ting love handles",
+      refLabels: ["Start", "Dip", "Rise"],
+      steps: [
+        "Lie on your side, elbow under shoulder, legs stacked.",
+        "Lift hips until body is a straight diagonal line.",
+        "Gently dip hip toward floor, then lift — squeeze obliques.",
+        "Breathe steadily through each rep."
+      ],
+      mistakes: [
+        "Hips sagging — break line from head to feet",
+        "Shoulder collapsing into elbow",
+        "Rushing through reps — slow is stronger"
+      ]
+    },
+    {
+      id: "sumo-squat", name: "Sumo Squat Pulse",
+      tag: "Thigh slim", meta: ["3 × 20", "5 min", "Inner thigh"],
+      yt: "LAeOJH_OIks",
+      source: "Pamela Reif",
+      ytSearch: "sumo squat pulse inner thigh pamela reif",
+      refLabels: ["Stance", "Down", "Pulse"],
+      steps: [
+        "Stand wider than shoulders, toes turned 45°.",
+        "Lower into a deep squat, keeping chest tall.",
+        "Pulse down 2 inches, rise 2 inches — stay low.",
+        "Squeeze inner thighs on every rise."
+      ],
+      mistakes: [
+        "Knees caving inward — push them out gently",
+        "Heels lifting off the floor",
+        "Rounding the lower back"
+      ]
+    },
+    {
+      id: "russian-twist", name: "Russian Twist",
+      tag: "Waist trim", meta: ["3 × 30", "4 min", "Obliques"],
+      yt: "wkD8rjkodUI",
+      source: "Howcast (certified trainer)",
+      ytSearch: "russian twist waist oblique blogilates form",
+      refLabels: ["Center", "Twist L", "Twist R"],
+      steps: [
+        "Sit with knees bent, heels light on floor, lean back slightly.",
+        "Clasp hands together or hold a light object.",
+        "Rotate torso left, then right — hips stay square.",
+        "Lift feet for more challenge when ready."
+      ],
+      mistakes: [
+        "Only moving arms, not torso",
+        "Rounding spine deeply",
+        "Holding your breath"
+      ]
+    }
+  ],
+  night: [
+    {
+      id: "tri-dip", name: "Triceps Dips",
+      tag: "Arm sculpt", meta: ["3 × 12", "4 min", "Arms"],
+      yt: "6kALZikXxLc",
+      source: "Howcast (certified trainer)",
+      ytSearch: "tricep dips chair arm toning madfit",
+      refLabels: ["Start", "Lower", "Rise"],
+      steps: [
+        "Sit on a stable chair, hands gripping the edge beside hips.",
+        "Slide forward, supporting weight on arms.",
+        "Lower hips until elbows bend 90°.",
+        "Push through palms to rise. Keep elbows narrow."
+      ],
+      mistakes: [
+        "Elbows flaring wide — keep them behind you",
+        "Dropping too low (shoulder strain)",
+        "Using legs to push up instead of triceps"
+      ]
+    },
+    {
+      id: "chin-tuck", name: "Chin Tucks (Neck Hump Fix)",
+      tag: "Posture", meta: ["3 × 15", "3 min", "Neck"],
+      yt: "P6kR1Vao9iE",
+      source: "Bob & Brad (licensed PT)",
+      ytSearch: "chin tucks neck hump bob and brad physical therapist",
+      refLabels: ["Neutral", "Tuck", "Release"],
+      steps: [
+        "Sit or stand tall, shoulders relaxed.",
+        "Gently glide your head straight back (double-chin feel).",
+        "Hold 3 seconds, release slowly.",
+        "Breathe — don't strain the jaw."
+      ],
+      mistakes: [
+        "Tilting chin up or down instead of back",
+        "Clenching jaw",
+        "Hunching shoulders during the move"
+      ]
+    },
+    {
+      id: "wall-push", name: "Wall Push-Up",
+      tag: "Arm tone", meta: ["3 × 15", "4 min", "Shoulders"],
+      yt: "YWw-3rGaoT0",
+      source: "Pilates On Demand with Lindsay",
+      ytSearch: "wall push up beginner arm tone women",
+      refLabels: ["Start", "Lower", "Press"],
+      steps: [
+        "Stand an arm's length from the wall, palms at chest height.",
+        "Inhale — bend elbows, lower chest toward wall.",
+        "Exhale — press back to start, shoulders down.",
+        "Keep body in a straight line, no hip sag."
+      ],
+      mistakes: [
+        "Elbows flaring too wide",
+        "Standing too close to the wall (reduces range)",
+        "Dropping head forward"
+      ]
+    },
+    {
+      id: "face-jaw", name: "Jawline Glide (Face Yoga)",
+      tag: "Anti-aging", meta: ["2 × 10", "2 min", "Face"],
+      yt: "6MfdtgF_YxM",
+      source: "Koko Face Yoga",
+      ytSearch: "jawline face yoga koko face yoga anti aging",
+      refLabels: ["Start", "Glide", "Lift"],
+      steps: [
+        "Tilt head slightly back, close lips.",
+        "Push lower jaw forward, feel a stretch under chin.",
+        "Hold 5 seconds, release.",
+        "Repeat — breathe through nose."
+      ],
+      mistakes: [
+        "Clenching teeth",
+        "Tensing shoulders",
+        "Forcing the movement — it should feel light"
+      ]
+    },
+    {
+      id: "cheek-lift", name: "Cheek Lifter (Face Yoga)",
+      tag: "Glow", meta: ["2 × 10", "2 min", "Cheeks"],
+      yt: "NNAi7goh138",
+      source: "Face Yoga Method (Fumiko Takatsu)",
+      ytSearch: "cheek lift face yoga fumiko takatsu",
+      refLabels: ["Rest", "Lift", "Hold"],
+      steps: [
+        "Open mouth in an 'O' shape.",
+        "Smile gently — feel cheeks lift up.",
+        "Place fingers lightly on top of cheeks for resistance.",
+        "Hold 10 seconds, release, breathe."
+      ],
+      mistakes: [
+        "Wrinkling forehead",
+        "Squeezing eyes shut",
+        "Pressing fingers too hard"
+      ]
+    },
+    {
+      id: "cat-cow", name: "Cat-Cow Flow",
+      tag: "Spine love", meta: ["10 rounds", "3 min", "Back"],
+      yt: "kqnua4rHVVA",
+      source: "Howcast (certified yoga instructor)",
+      ytSearch: "cat cow yoga with adriene gentle spine",
+      refLabels: ["Cat", "Cow", "Flow"],
+      steps: [
+        "Come to hands and knees — wrists under shoulders, knees under hips.",
+        "Inhale — drop belly, lift chest and tailbone (Cow).",
+        "Exhale — round spine, tuck chin (Cat).",
+        "Flow slowly, matching breath to movement."
+      ],
+      mistakes: [
+        "Moving too fast, skipping breath",
+        "Locking elbows",
+        "Sinking into shoulders"
+      ]
+    }
+  ]
+};
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+const $ = sel => document.querySelector(sel);
+const $$ = sel => document.querySelectorAll(sel);
+
+function ytThumb(id) {
+  return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+}
+/* YouTube exposes auto-generated frames 1, 2, 3 = start / mid / end of the demo.
+   Using these as reference images guarantees real, exercise-specific imagery
+   that can't 404 as long as the video ID is valid. */
+function ytFrame(id, n) {
+  return `https://img.youtube.com/vi/${id}/${n}.jpg`;
+}
+function ytSearchURL(q) {
+  return `https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`;
+}
+function ytWatchURL(id) {
+  return `https://www.youtube.com/watch?v=${id}`;
+}
+
+function showToast(msg) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+/* ============================================================
+   RENDER EXERCISES
+   ============================================================ */
+let currentTime = 'morning';
+let currentLevel = 1;
+
+function renderExercises() {
+  const grid = $('#exGrid');
+  grid.innerHTML = '';
+  EX[currentTime].forEach(ex => {
+    const card = document.createElement('div');
+    card.className = 'ex-card reveal';
+    card.innerHTML = `
+      <div class="ex-thumb" style="background-image:url('${ytThumb(ex.yt)}')">
+        <span class="tag">${ex.tag}</span>
+        <a class="fallback-yt" href="${ytSearchURL(ex.ytSearch)}" target="_blank" rel="noopener" title="Backup: search trusted demos on YouTube" onclick="event.stopPropagation()">↗</a>
+        <span class="play">▶</span>
+      </div>
+      <div class="ex-body">
+        <h4>${ex.name}</h4>
+        <div class="ex-meta">
+          ${ex.meta.map(m => `<span>• ${m}</span>`).join('')}
+        </div>
+        <div style="font-size:11px; color:var(--ink-3); letter-spacing:0.3px;">via <b style="color:var(--ink-2);">${ex.source}</b></div>
+        <div class="ex-btns">
+          <button class="btn primary" data-id="${ex.id}">Watch Before Start</button>
+          <button class="btn ghost" data-done="${ex.id}">✓</button>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  // bind clicks
+  grid.querySelectorAll('[data-id]').forEach(b => {
+    b.addEventListener('click', () => openModal(b.dataset.id));
+  });
+  grid.querySelectorAll('[data-done]').forEach(b => {
+    b.addEventListener('click', () => {
+      b.textContent = '✓ Done';
+      b.style.background = '#DEF5EA';
+      b.style.color = '#3C8C69';
+      showToast('Beautiful work 🌸');
+    });
+  });
+
+  setTimeout(() => $$('.reveal').forEach(el => el.classList.add('in')), 50);
+}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+function openModal(id) {
+  const ex = [...EX.morning, ...EX.night].find(e => e.id === id);
+  if (!ex) return;
+  $('#mTitle').textContent = ex.name;
+  $('#mSub').textContent = ex.tag + ' · Watch this short demo first';
+  $('#ytFrame').src = `https://www.youtube-nocookie.com/embed/${ex.yt}?rel=0&playsinline=1&modestbranding=1`;
+
+  $('#mTrust').innerHTML = `<b>Trusted source:</b> ${ex.source} — if the video won't load, use the backup search.`;
+  $('#mWatchYT').href = ytWatchURL(ex.yt);
+  $('#mSearchYT').href = ytSearchURL(ex.ytSearch);
+
+  const refBox = $('#mRefImgs');
+  refBox.innerHTML = ex.refLabels.map((label, i) => `
+    <div class="ref-img" style="background-image:url('${ytFrame(ex.yt, i + 1)}')">
+      <span>${label}</span>
+    </div>`).join('');
+
+  $('#mSteps').innerHTML = ex.steps.map(s => `<li>${s}</li>`).join('');
+  $('#mMistakes').innerHTML = ex.mistakes.map(m => `<li>${m}</li>`).join('');
+
+  $('#modalWrap').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  $('#modalWrap').classList.remove('open');
+  $('#ytFrame').src = '';
+  document.body.style.overflow = '';
+}
+$('#modalClose').addEventListener('click', closeModal);
+$('#modalWrap').addEventListener('click', e => { if (e.target === $('#modalWrap')) closeModal(); });
+
+/* ============================================================
+   TOGGLE MORNING / NIGHT
+   ============================================================ */
+$$('#timeToggle button').forEach(b => {
+  b.addEventListener('click', () => {
+    $$('#timeToggle button').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    currentTime = b.dataset.time;
+    renderExercises();
+  });
+});
+
+/* ============================================================
+   LEVEL TILES
+   ============================================================ */
+$$('#levelTiles .level-tile').forEach(t => {
+  t.addEventListener('click', () => {
+    $$('#levelTiles .level-tile').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    currentLevel = parseInt(t.dataset.level);
+    showToast(`Level ${currentLevel} selected ✿`);
+  });
+});
+
+/* ============================================================
+   BOTTOM NAV
+   ============================================================ */
+const panes = ['paneToday','paneWorkouts','paneCycle','paneFlow','paneProgress'];
+$$('#navBottom button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    $$('#navBottom button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const target = btn.dataset.pane;
+    panes.forEach(p => {
+      const el = document.getElementById(p);
+      if (p === target) {
+        el.classList.remove('hidden-pane');
+        el.classList.remove('pane-enter'); void el.offsetWidth; el.classList.add('pane-enter');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        el.classList.add('hidden-pane');
+      }
+    });
+  });
+});
+
+/* ============================================================
+   CYCLE CALENDAR (April, 30 days)
+   ============================================================ */
+function renderCal() {
+  const grid = $('#calGrid');
+  grid.innerHTML = '';
+  const today = 17;
+  // April 1, 2026 is a Wednesday → 2 empty cells before
+  for (let i = 0; i < 2; i++) {
+    const sp = document.createElement('div'); sp.className = 'd'; sp.style.visibility = 'hidden';
+    grid.appendChild(sp);
+  }
+  for (let d = 1; d <= 30; d++) {
+    const cell = document.createElement('div');
+    cell.className = 'd';
+    cell.textContent = d;
+    if (d === today) cell.classList.add('today');
+    if (d >= 23 && d <= 25) cell.classList.add('period');
+    else if (d === 21 || d === 22 || d === 26 || d === 27) cell.classList.add('low');
+    else if ([2,6,10,14,18,28].includes(d)) cell.classList.add('rest');
+    grid.appendChild(cell);
+  }
+}
+renderCal();
+
+/* ============================================================
+   PERIOD MODE TOGGLE
+   ============================================================ */
+function setPeriodMode(on) {
+  document.body.classList.toggle('period-mode', on);
+  if (on) {
+    $('#heroTitle').textContent = "Soft day. Your body is working hard, love.";
+    $('#heroEmotion').textContent = "Today is for rest, warm food, and gentle stretches. No HIIT — you've already earned today.";
+    $('#phaseTitle').textContent = "You're in your Period phase";
+    $('#phaseDesc').textContent = "Full recovery mode 🩷 Stick to restorative yoga, Child's pose, and legs-up-the-wall. Warm water with jaggery helps cramps.";
+    $('#cycleLabel').textContent = "Day 1 · Period";
+    showToast("Period mode on — sending softness 🩷");
+  } else {
+    $('#heroTitle').textContent = "Your body is asking for softness today.";
+    $('#heroEmotion').textContent = "Let's move gently and breathe deeply. Fat burn + a little magic — you've got this.";
+    $('#phaseTitle').textContent = "You're in your Follicular phase";
+    $('#phaseDesc').textContent = "Your energy is rising, lovely. This is a great time for building strength. Surya Namaskar + light HIIT will feel amazing.";
+    $('#cycleLabel').textContent = "Day 8 · Follicular";
+    showToast("Back to regular flow 🌼");
+  }
+}
+$('#togglePeriod').addEventListener('click', () => {
+  setPeriodMode(!document.body.classList.contains('period-mode'));
+});
+
+/* ============================================================
+   FACE YOGA + POSTURE MINI LISTS
+   ============================================================ */
+const faceYoga = [
+  { name: "Jawline Glide", sub: "Tightens jaw, reduces double chin", yt: "6MfdtgF_YxM", source: "Koko Face Yoga", ytSearch: "jawline glide koko face yoga" },
+  { name: "Cheek Lifter",  sub: "Adds glow, lifts mid-face", yt: "NNAi7goh138", source: "Face Yoga Method (Fumiko)", ytSearch: "cheek lift face yoga fumiko takatsu" },
+  { name: "Forehead Smoother", sub: "Softens forehead lines", yt: "2bG9FHlsSN8", source: "Blush with me-Parmita", ytSearch: "forehead smoother face yoga" },
+  { name: "Neck Slimmer", sub: "Tones neck + jaw area", yt: "vpyPacXdr_M", source: "Cult Fit", ytSearch: "neck slimmer face yoga reduce double chin" }
+];
+const posture = [
+  { name: "Chin Tucks", sub: "Reverses neck hump", yt: "P6kR1Vao9iE", source: "Bob & Brad (licensed PT)", ytSearch: "chin tucks neck hump bob and brad" },
+  { name: "Doorway Stretch", sub: "Opens chest + shoulders", yt: "O8rJw_TmC1Y", source: "Rehab Hero", ytSearch: "doorway chest stretch posture" },
+  { name: "Shoulder Rolls", sub: "Releases tight traps", yt: "LgPCO6RIH3Q", source: "AW Fitness", ytSearch: "shoulder rolls exercise posture" },
+  { name: "Wall Angels", sub: "Realigns upper back", yt: "6PY_CS0aXh0", source: "VIGEO", ytSearch: "wall angels posture exercise" }
+];
+function fillMini(listEl, arr) {
+  arr.forEach(m => {
+    const row = document.createElement('div');
+    row.className = 'mini-row';
+    row.innerHTML = `
+      <div class="mini-thumb" style="background-image:url('${ytThumb(m.yt)}')"></div>
+      <div><h5>${m.name}</h5><small>${m.sub} · <i style="color:var(--ink-2); font-style:normal; font-weight:600;">${m.source}</i></small></div>
+      <button data-yt="${m.yt}" data-name="${m.name}" data-source="${m.source}" data-search="${m.ytSearch}">Watch</button>`;
+    listEl.appendChild(row);
+  });
+  listEl.querySelectorAll('button[data-yt]').forEach(b => {
+    b.addEventListener('click', () => {
+      $('#mTitle').textContent = b.dataset.name;
+      $('#mSub').textContent = "Quick visual demo";
+      $('#ytFrame').src = `https://www.youtube-nocookie.com/embed/${b.dataset.yt}?rel=0&playsinline=1&modestbranding=1`;
+      $('#mTrust').innerHTML = `<b>Trusted source:</b> ${b.dataset.source} — if the video won't load, use the backup search.`;
+      $('#mWatchYT').href = ytWatchURL(b.dataset.yt);
+      $('#mSearchYT').href = ytSearchURL(b.dataset.search);
+      $('#mRefImgs').innerHTML = [1, 2, 3].map(n => `
+        <div class="ref-img" style="background-image:url('${ytFrame(b.dataset.yt, n)}')">
+          <span>${['Start','Mid','End'][n-1]}</span>
+        </div>`).join('');
+      $('#mSteps').innerHTML = '<li>Watch the short demo and mirror the movements gently.</li>';
+      $('#mMistakes').innerHTML = '<li>Move slowly and breathe — no rushing.</li>';
+      $('#modalWrap').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+}
+fillMini($('#faceYogaList'), faceYoga);
+fillMini($('#postureList'), posture);
+
+/* ============================================================
+   DAILY CHECKLIST
+   ============================================================ */
+const checklist = [
+  "Woke up and drank warm water",
+  "Morning workout (Fat burn)",
+  "Power smoothie",
+  "Mid-day fruits",
+  "Swim session",
+  "Night workout (Sculpt + Posture)",
+  "Face yoga",
+  "In bed by 11 PM"
+];
+const cl = $('#checkList');
+checklist.forEach((t, i) => {
+  const it = document.createElement('div');
+  it.className = 'check-item' + (i < 3 ? ' done' : '');
+  it.innerHTML = `<div class="box">✓</div><div class="label">${t}</div>`;
+  it.addEventListener('click', () => {
+    it.classList.toggle('done');
+    if (it.classList.contains('done')) showToast('Check! Keep going 💗');
+  });
+  cl.appendChild(it);
+});
+
+/* ============================================================
+   DATE LABEL
+   ============================================================ */
+const today = new Date();
+const wkDay = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][today.getDay()];
+const mon = ['January','February','March','April','May','June','July','August','September','October','November','December'][today.getMonth()];
+$('#heroDate').textContent = `Today · ${mon} ${today.getDate()}`;
+$('#dateLabel').textContent = `${wkDay} · A gentle day awaits`;
+
+/* ============================================================
+   INIT
+   ============================================================ */
+renderExercises();
+setTimeout(() => $$('.reveal').forEach(el => el.classList.add('in')), 80);
+</script>
 </body>
 </html>
