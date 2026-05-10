@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Bloom — Jensi</title>
+<title>Bloom — Cupcake</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#FEFAF8; --card:#fff;
-  --rose:#FF9BB5; --rose-d:#E85C85;
-  --peach:#FFB088; --lav:#B8A4FF; --mint:#7ED9B7; --gold:#E8B86F;
-  --ink1:#2A1B35; --ink2:#5A4A66; --ink3:#9B8CA8;
-  --line:#F0E6EE;
-  --sh:0 2px 18px rgba(168,100,140,.13);
+  --bg:#0A0E1A; --card:#141A2E;
+  --rose:#3B82F6; --rose-d:#60A5FA;
+  --peach:#06B6D4; --lav:#8B5CF6; --mint:#10B981; --gold:#F59E0B;
+  --ink1:#F8FAFC; --ink2:#CBD5E1; --ink3:#64748B;
+  --line:#1F2A44;
+  --sh:0 2px 18px rgba(0,0,0,.55);
 }
-body.period-mode{--rose:#FF7FA5;--rose-d:#D94878;}
+body.period-mode{--rose:#60A5FA;--rose-d:#93C5FD;}
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{
   font-family:'Plus Jakarta Sans',sans-serif;
@@ -24,7 +24,7 @@ html,body{
 }
 body::before{
   content:"";position:fixed;inset:0;
-  background:linear-gradient(160deg,#FFF4F0 0%,#F8F0FF 55%,#EDFBF5 100%);
+  background:linear-gradient(160deg,#0A0E1A 0%,#0F1B3D 55%,#000814 100%);
   z-index:0;pointer-events:none;
 }
 .app{position:relative;z-index:1;max-width:520px;margin:0 auto;padding-bottom:90px;}
@@ -33,8 +33,8 @@ body::before{
 .skip-notice{
   position:sticky;top:0;z-index:60;
   padding:11px 16px;
-  background:linear-gradient(90deg,#FFF0F5,#FFF8EC);
-  border-bottom:1px solid rgba(232,92,133,.2);
+  background:linear-gradient(90deg,#0F1B3D,#1E293B);
+  border-bottom:1px solid rgba(59,130,246,.3);
   transition:max-height .35s,opacity .3s,padding .3s;
   max-height:90px;overflow:hidden;
 }
@@ -51,15 +51,15 @@ body::before{
 .header p{font-size:13px;color:var(--ink3);margin-top:3px;}
 .streak-pill{
   display:inline-flex;align-items:center;gap:5px;
-  background:#fff;border:1px solid var(--line);border-radius:999px;
-  padding:8px 14px;font-size:13px;font-weight:700;
+  background:var(--card);border:1px solid var(--line);border-radius:999px;
+  padding:8px 14px;font-size:13px;font-weight:700;color:var(--ink1);
   box-shadow:var(--sh);white-space:nowrap;flex:none;
 }
 
 /* ---- TOP TAB BAR ---- */
 .tabs{
   display:flex;overflow-x:auto;
-  background:#fff;border-bottom:1.5px solid var(--line);
+  background:#0E1424;border-bottom:1.5px solid var(--line);
   margin-top:18px;
   position:sticky;top:0;z-index:40;
   scrollbar-width:none;
@@ -85,14 +85,14 @@ body::before{
 
 /* ---- GREETING CARD ---- */
 .greet{
-  background:#fff;border:1px solid var(--line);
+  background:var(--card);border:1px solid var(--line);
   border-radius:24px;padding:24px;box-shadow:var(--sh);
   margin-bottom:24px;position:relative;overflow:hidden;
 }
 .greet::after{
   content:"";position:absolute;top:-50px;right:-50px;
   width:170px;height:170px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,155,181,.28),transparent 70%);
+  background:radial-gradient(circle,rgba(59,130,246,.4),transparent 70%);
   pointer-events:none;
 }
 .greet .gdate{font-size:11px;color:var(--ink3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;}
@@ -100,16 +100,16 @@ body::before{
 .greet p{margin-top:8px;font-size:14px;color:var(--ink2);line-height:1.65;position:relative;z-index:1;}
 .greet .focus-tag{
   display:inline-block;margin-top:14px;
-  background:linear-gradient(135deg,#FFE7EE,#FFF5F8);
+  background:linear-gradient(135deg,#1E3A8A,#1E293B);
   color:var(--rose-d);font-size:12px;font-weight:700;
-  padding:7px 14px;border-radius:999px;border:1px solid #FFD5E2;
+  padding:7px 14px;border-radius:999px;border:1px solid #3B82F6;
   position:relative;z-index:1;
 }
 
 /* ---- SESSION TOGGLE ---- */
 .sess-toggle{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
 .sess-btn{
-  border:1.5px solid var(--line);background:#fff;
+  border:1.5px solid var(--line);background:var(--card);
   border-radius:18px;padding:16px 12px;
   text-align:center;cursor:pointer;font-family:inherit;transition:all .2s;
 }
@@ -118,8 +118,8 @@ body::before{
 .sess-btn .ss{font-size:11px;color:var(--ink3);margin-top:2px;}
 .sess-btn.active{
   border-color:var(--rose);
-  background:linear-gradient(160deg,#FFF5F8,#fff);
-  box-shadow:0 4px 16px -8px rgba(232,92,133,.4);
+  background:linear-gradient(160deg,#0F1B3D,#141A2E);
+  box-shadow:0 4px 16px -8px rgba(59,130,246,.55);
 }
 .sess-btn.active .sl{color:var(--rose-d);}
 
@@ -132,29 +132,29 @@ body::before{
 /* ---- EXERCISE ROWS ---- */
 .ex-list{display:grid;gap:10px;}
 .ex-row{
-  background:#fff;border:1.5px solid var(--line);
+  background:var(--card);border:1.5px solid var(--line);
   border-radius:18px;padding:16px 18px;
   display:grid;grid-template-columns:36px 1fr auto;
   align-items:center;gap:14px;
   transition:border-color .2s,background .2s;
 }
-.ex-row.done{background:linear-gradient(160deg,#F0FBF5,#fff);border-color:#9FD9BA;}
+.ex-row.done{background:linear-gradient(160deg,#0E2940,#141A2E);border-color:#06B6D4;}
 .ex-num{
   width:36px;height:36px;border-radius:12px;
   background:linear-gradient(135deg,var(--rose),var(--peach));
   color:#fff;font-size:13px;font-weight:800;
   display:grid;place-items:center;flex:none;
 }
-.ex-row.done .ex-num{background:linear-gradient(135deg,var(--mint),#3C8C69);}
-.ex-name{font-size:15px;font-weight:700;line-height:1.2;}
-.ex-row.done .ex-name{color:#2D6B4E;}
+.ex-row.done .ex-num{background:linear-gradient(135deg,#06B6D4,#0E7490);}
+.ex-name{font-size:15px;font-weight:700;line-height:1.2;color:var(--ink1);}
+.ex-row.done .ex-name{color:#67E8F9;}
 .ex-sets{font-size:12px;color:var(--ink3);margin-top:3px;}
 .ex-tag{
   display:inline-block;font-size:10px;font-weight:700;
   padding:3px 8px;border-radius:6px;
-  background:#FFF0F5;color:var(--rose-d);margin-top:5px;letter-spacing:.3px;
+  background:rgba(59,130,246,.15);color:var(--rose-d);margin-top:5px;letter-spacing:.3px;
 }
-.ex-row.done .ex-tag{background:#E8F7EE;color:#2D6B4E;}
+.ex-row.done .ex-tag{background:rgba(6,182,212,.18);color:#67E8F9;}
 .ex-actions{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
 .watch-btn{
   border:0;background:transparent;
@@ -162,13 +162,13 @@ body::before{
   cursor:pointer;font-family:inherit;padding:0;white-space:nowrap;
 }
 .done-btn{
-  border:1.5px solid #E2D5E0;background:#fff;
+  border:1.5px solid var(--line);background:var(--card);
   color:var(--ink3);font-size:12px;font-weight:700;
   padding:8px 14px;border-radius:10px;
   cursor:pointer;font-family:inherit;
   transition:all .2s;white-space:nowrap;
 }
-.done-btn.checked{background:linear-gradient(135deg,#DEF5EA,#C9F0D8);border-color:#3C8C69;color:#2D6B4E;}
+.done-btn.checked{background:linear-gradient(135deg,#0E7490,#06B6D4);border-color:#06B6D4;color:#0A0E1A;}
 
 /* ---- DAY STRIP ---- */
 .day-strip{
@@ -182,15 +182,15 @@ body::before{
   flex:none;display:flex;flex-direction:column;
   align-items:center;gap:4px;
   padding:10px 14px;border-radius:16px;
-  border:1.5px solid var(--line);background:#fff;
+  border:1.5px solid var(--line);background:var(--card);
   cursor:pointer;font-family:inherit;min-width:54px;transition:all .2s;
 }
 .day-pill .dn{font-size:10px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;}
 .day-pill .dd{font-size:18px;font-weight:800;color:var(--ink2);line-height:1;}
 .day-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--line);}
-.day-pill.active{border-color:var(--rose);background:linear-gradient(160deg,#FFF5F8,#fff);}
+.day-pill.active{border-color:var(--rose);background:linear-gradient(160deg,#0F1B3D,#141A2E);}
 .day-pill.active .dn,.day-pill.active .dd{color:var(--rose-d);}
-.day-pill.done-all .dot{background:#3C8C69;}
+.day-pill.done-all .dot{background:#06B6D4;}
 .day-pill.done-partial .dot{background:var(--peach);}
 
 /* ---- WEEK VIEW ---- */
@@ -206,110 +206,112 @@ body::before{
 .sess-head small{margin-left:auto;font-size:12px;color:var(--ink3);}
 
 /* ---- CALENDAR ---- */
-.cal-wrap{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;}
-.cal-wrap h3{font-family:'DM Serif Display',serif;font-size:18px;font-weight:400;}
+.cal-wrap{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;}
+.cal-wrap h3{font-family:'DM Serif Display',serif;font-size:18px;font-weight:400;color:var(--ink1);}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:10px;}
 .wd{font-size:10px;color:var(--ink3);text-align:center;font-weight:700;letter-spacing:.5px;padding-bottom:4px;}
-.cd{aspect-ratio:1;border-radius:10px;display:grid;place-items:center;font-size:13px;font-weight:600;background:#fff;border:1px solid var(--line);color:var(--ink2);}
+.cd{aspect-ratio:1;border-radius:10px;display:grid;place-items:center;font-size:13px;font-weight:600;background:#0E1424;border:1px solid var(--line);color:var(--ink2);}
 .cd.today{outline:2px solid var(--rose-d);outline-offset:2px;}
-.cd.period{background:linear-gradient(135deg,#FFD3DE,#FFB6CC);color:#8A2F4F;border-color:transparent;}
-.cd.low{background:#FFE9F0;color:#C93C69;border-color:transparent;}
-.cd.rest{background:#E8F7EE;color:#2E7B52;border-color:transparent;}
+.cd.period{background:linear-gradient(135deg,#1E3A8A,#312E81);color:#C7D2FE;border-color:transparent;}
+.cd.low{background:rgba(59,130,246,.18);color:#93C5FD;border-color:transparent;}
+.cd.rest{background:rgba(6,182,212,.18);color:#67E8F9;border-color:transparent;}
 .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:var(--ink2);}
 .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:middle;}
 
 /* ---- PHASE CARD ---- */
-.phase-card{background:linear-gradient(135deg,#FFE7EE,#FFF5F8);border:1px solid #FFD6E1;border-radius:20px;padding:20px;margin-top:16px;}
-.phase-card h4{font-family:'DM Serif Display',serif;font-size:18px;font-weight:400;margin-bottom:6px;}
+.phase-card{background:linear-gradient(135deg,#0F1B3D,#1E1B4B);border:1px solid #1E3A8A;border-radius:20px;padding:20px;margin-top:16px;}
+.phase-card h4{font-family:'DM Serif Display',serif;font-size:18px;font-weight:400;margin-bottom:6px;color:var(--ink1);}
 .phase-card p{font-size:14px;color:var(--ink2);line-height:1.65;}
-.emo-card{background:linear-gradient(135deg,#FFE7EE,#F6EEFF);border:1px solid #FFD6E1;border-radius:18px;padding:18px;margin-top:14px;display:flex;gap:14px;}
-.emo-ico{width:40px;height:40px;border-radius:12px;background:#fff;display:grid;place-items:center;font-size:18px;flex:none;}
-.emo-card h5{font-size:14px;font-weight:700;margin-bottom:3px;}
+.emo-card{background:linear-gradient(135deg,#0F1B3D,#1E1B4B);border:1px solid #1E3A8A;border-radius:18px;padding:18px;margin-top:14px;display:flex;gap:14px;}
+.emo-ico{width:40px;height:40px;border-radius:12px;background:#141A2E;display:grid;place-items:center;font-size:18px;flex:none;}
+.emo-card h5{font-size:14px;font-weight:700;margin-bottom:3px;color:var(--ink1);}
 .emo-card p{font-size:13px;color:var(--ink2);line-height:1.5;}
 .iron-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;}
-.iron-item{text-align:center;padding:10px 6px;background:#FFF0F5;border-radius:12px;font-size:12px;font-weight:600;}
+.iron-item{text-align:center;padding:10px 6px;background:rgba(59,130,246,.12);border-radius:12px;font-size:12px;font-weight:600;color:var(--ink2);}
 
 /* ---- DIET ---- */
-.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;}
 .timeline{display:grid;gap:0;margin-top:12px;}
 .tl-row{display:grid;grid-template-columns:80px 1fr;gap:12px;padding:15px 0;border-bottom:1px dashed var(--line);align-items:start;}
 .tl-row:last-child{border-bottom:0;}
 .tl-time{font-size:13px;font-weight:700;color:var(--rose-d);}
 .tl-meal{font-size:14px;color:var(--ink1);line-height:1.5;}
+.tl-meal b{color:var(--ink1);}
 .tl-meal small{display:block;font-size:12px;color:var(--ink3);margin-top:2px;}
 
-/* ---- SWIM ---- */
-.swim-card{background:linear-gradient(135deg,#D9F1FF,#EAF9FF);border:1px solid #C4E8F9;border-radius:20px;padding:20px;margin-bottom:16px;}
-.swim-card h4{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;margin-bottom:4px;}
-.swim-card p{font-size:13px;color:#1F6FB0;margin-bottom:12px;}
-.swim-list{display:grid;gap:8px;}
-.swim-row{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.75);border-radius:12px;padding:10px 14px;font-size:13px;color:var(--ink2);font-weight:500;}
-.swim-row b{color:#1F6FB0;font-size:12px;font-weight:700;}
+/* ---- WEEK PLAN CARD ---- */
+.plan-card{background:linear-gradient(135deg,#0F1B3D,#1E293B);border:1px solid #1E40AF;border-radius:20px;padding:20px;margin-bottom:16px;}
+.plan-card h4{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;margin-bottom:4px;color:var(--ink1);}
+.plan-card p{font-size:13px;color:#93C5FD;margin-bottom:12px;}
+.plan-list{display:grid;gap:8px;}
+.plan-row{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(59,130,246,.18);border-radius:12px;padding:10px 14px;font-size:13px;color:var(--ink2);font-weight:500;}
+.plan-row b{color:#93C5FD;font-size:12px;font-weight:700;}
 
 /* ---- MINI LIST (face/posture) ---- */
 .mini-list{display:grid;gap:10px;margin-top:12px;}
-.mini-row{display:grid;grid-template-columns:50px 1fr auto;gap:12px;align-items:center;padding:10px 12px;background:#fff;border-radius:14px;border:1px solid var(--line);}
-.mini-thumb{width:50px;height:50px;border-radius:12px;background-size:cover;background-position:center;background-color:#F5EDF4;}
-.mini-row h5{font-size:13px;font-weight:700;}
+.mini-row{display:grid;grid-template-columns:50px 1fr auto;gap:12px;align-items:center;padding:10px 12px;background:var(--card);border-radius:14px;border:1px solid var(--line);}
+.mini-thumb{width:50px;height:50px;border-radius:12px;background-size:cover;background-position:center;background-color:#1F2A44;}
+.mini-row h5{font-size:13px;font-weight:700;color:var(--ink1);}
 .mini-row small{font-size:11px;color:var(--ink3);}
-.mini-row button{border:0;background:#FFF0F5;color:var(--rose-d);font-weight:700;font-size:11px;padding:8px 12px;border-radius:10px;cursor:pointer;font-family:inherit;}
+.mini-row button{border:0;background:rgba(59,130,246,.18);color:var(--rose-d);font-weight:700;font-size:11px;padding:8px 12px;border-radius:10px;cursor:pointer;font-family:inherit;}
 
 /* ---- STATS ---- */
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
-.stat-tile{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 16px;}
+.stat-tile{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 16px;}
 .stat-lb{font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:1.2px;}
 .stat-v{font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;background:linear-gradient(135deg,var(--rose),var(--peach));-webkit-background-clip:text;background-clip:text;color:transparent;margin-top:4px;}
 .stat-sub{font-size:12px;color:var(--ink3);margin-top:4px;}
 
 /* ---- BADGES ---- */
 .badge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
-.badge-tile{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 10px;text-align:center;}
-.bi{width:40px;height:40px;border-radius:14px;background:#F1EAF3;display:grid;place-items:center;font-size:20px;margin:0 auto 8px;}
-.badge-tile.earned .bi{background:linear-gradient(135deg,var(--gold),var(--peach));}
-.badge-tile b{font-size:12px;display:block;}
+.badge-tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 10px;text-align:center;}
+.bi{width:40px;height:40px;border-radius:14px;background:#1F2A44;display:grid;place-items:center;font-size:20px;margin:0 auto 8px;}
+.badge-tile.earned .bi{background:linear-gradient(135deg,var(--rose),var(--peach));}
+.badge-tile b{font-size:12px;display:block;color:var(--ink1);}
 .badge-tile small{font-size:10px;color:var(--ink3);font-weight:600;letter-spacing:.4px;text-transform:uppercase;}
 
 /* ---- CHECKLIST ---- */
 .cl-list{display:grid;gap:8px;margin-top:14px;}
-.cl-row{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border:1.5px solid var(--line);border-radius:14px;cursor:pointer;user-select:none;transition:border-color .2s;}
-.cl-box{width:22px;height:22px;border-radius:7px;border:2px solid #E2D5E0;flex:none;display:grid;place-items:center;color:#fff;font-size:12px;transition:all .2s;}
-.cl-row.done .cl-box{background:var(--rose-d);border-color:var(--rose-d);}
+.cl-row{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--card);border:1.5px solid var(--line);border-radius:14px;cursor:pointer;user-select:none;transition:border-color .2s;}
+.cl-box{width:22px;height:22px;border-radius:7px;border:2px solid var(--line);flex:none;display:grid;place-items:center;color:#fff;font-size:12px;transition:all .2s;}
+.cl-row.done .cl-box{background:var(--rose-d);border-color:var(--rose-d);color:#0A0E1A;}
 .cl-row.done .cl-label{text-decoration:line-through;color:var(--ink3);}
-.cl-label{font-size:14px;}
+.cl-label{font-size:14px;color:var(--ink1);}
 
 /* ---- DIVIDER ---- */
 .divider{height:1px;background:var(--line);margin:24px 0;}
 
 /* ---- MODAL ---- */
-.modal-wrap{position:fixed;inset:0;background:rgba(42,27,53,.55);backdrop-filter:blur(8px);display:none;z-index:100;padding:16px;align-items:flex-start;justify-content:center;overflow-y:auto;}
+.modal-wrap{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);display:none;z-index:100;padding:16px;align-items:flex-start;justify-content:center;overflow-y:auto;}
 .modal-wrap.open{display:flex;}
-.modal{background:#fff;width:100%;max-width:760px;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px -20px rgba(42,27,53,.45);margin:24px auto;}
+.modal{background:var(--card);width:100%;max-width:760px;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px -20px rgba(0,0,0,.7);margin:24px auto;border:1px solid var(--line);}
 .modal-video{position:relative;padding-top:56.25%;background:#000;}
 .modal-video iframe{position:absolute;inset:0;width:100%;height:100%;}
 .modal-body{padding:24px;}
 .modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px;}
-.modal-head h3{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;}
-.modal-close{width:36px;height:36px;border-radius:12px;border:0;background:#F5EDF4;color:var(--ink2);font-size:16px;cursor:pointer;flex:none;display:grid;place-items:center;}
-.trust-note{font-size:12px;color:var(--ink3);background:#FFF5F8;padding:10px 14px;border-radius:10px;margin-bottom:14px;}
+.modal-head h3{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;color:var(--ink1);}
+.modal-close{width:36px;height:36px;border-radius:12px;border:0;background:#1F2A44;color:var(--ink2);font-size:16px;cursor:pointer;flex:none;display:grid;place-items:center;}
+.trust-note{font-size:12px;color:var(--ink3);background:rgba(59,130,246,.1);padding:10px 14px;border-radius:10px;margin-bottom:14px;border:1px solid rgba(59,130,246,.18);}
+.trust-note b{color:var(--ink2);}
 .fallback-bar{display:flex;gap:8px;margin-bottom:20px;}
 .fallback-bar a{padding:10px 16px;border-radius:12px;font-size:13px;font-weight:600;text-decoration:none;}
 .fallback-bar a.primary{background:linear-gradient(135deg,var(--rose),var(--peach));color:#fff;}
-.fallback-bar a:not(.primary){background:#F5EDF4;color:var(--ink2);}
+.fallback-bar a:not(.primary){background:#1F2A44;color:var(--ink2);}
 .modal-body h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--ink3);margin:18px 0 10px;}
 .ref-imgs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-.ref-img{aspect-ratio:16/9;border-radius:12px;background-size:cover;background-position:center;position:relative;overflow:hidden;}
-.ref-img span{position:absolute;bottom:6px;left:6px;background:rgba(0,0,0,.55);color:#fff;font-size:10px;font-weight:700;padding:3px 7px;border-radius:6px;}
+.ref-img{aspect-ratio:16/9;border-radius:12px;background-size:cover;background-position:center;position:relative;overflow:hidden;background-color:#1F2A44;}
+.ref-img span{position:absolute;bottom:6px;left:6px;background:rgba(0,0,0,.65);color:#fff;font-size:10px;font-weight:700;padding:3px 7px;border-radius:6px;}
 .steps{padding-left:20px;display:grid;gap:6px;}
 .steps li{font-size:14px;color:var(--ink2);line-height:1.5;}
 .mistakes{list-style:none;display:grid;gap:6px;}
-.mistakes li{font-size:14px;color:var(--ink2);background:#FFF5F8;border-left:3px solid #E8748E;padding:8px 12px;border-radius:8px;}
+.mistakes li{font-size:14px;color:var(--ink2);background:rgba(239,68,68,.08);border-left:3px solid #F87171;padding:8px 12px;border-radius:8px;}
 
 /* ---- TOAST ---- */
-.toast{position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-20px);background:#fff;padding:12px 20px;border-radius:999px;box-shadow:0 12px 30px -10px rgba(42,27,53,.3);font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:all .3s ease;z-index:200;border:1px solid var(--line);}
+.toast{position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--card);color:var(--ink1);padding:12px 20px;border-radius:999px;box-shadow:0 12px 30px -10px rgba(0,0,0,.6);font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:all .3s ease;z-index:200;border:1px solid var(--line);}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
 /* ---- BOTTOM NAV ---- */
-nav.bottom{position:fixed;left:0;right:0;bottom:0;display:flex;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:8px 4px calc(8px + env(safe-area-inset-bottom));z-index:50;box-shadow:0 -6px 20px -10px rgba(168,100,140,.18);}
+nav.bottom{position:fixed;left:0;right:0;bottom:0;display:flex;background:rgba(10,14,26,.97);border-top:1px solid var(--line);padding:8px 4px calc(8px + env(safe-area-inset-bottom));z-index:50;box-shadow:0 -6px 20px -10px rgba(0,0,0,.6);}
 nav.bottom button{flex:1;border:0;background:transparent;padding:7px 2px;font-family:inherit;font-size:10px;font-weight:700;color:var(--ink3);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;border-radius:10px;-webkit-tap-highlight-color:transparent;transition:color .2s;white-space:nowrap;overflow:hidden;}
 nav.bottom button .ni{font-size:20px;line-height:1;transition:transform .2s;}
 nav.bottom button.active{color:var(--rose-d);}
@@ -326,8 +328,8 @@ section.hidden-pane{display:none;}
   <div class="skip-inner">
     <span class="skip-ico">&#x26A1;</span>
     <div class="skip-text">
-      <strong>No skipping, Jensi!</strong>
-      Skipping any day (except period days 23&#8211;25) = snaps penalty. Show up every day &#8212; your future self is watching.
+      <strong>No skipping, Cupcake!</strong>
+      Skipping any day (except period days 14&#8211;17) = snaps penalty. Show up every morning &#8212; your future self is watching.
     </div>
     <button class="skip-close" id="skipClose">&#x2715;</button>
   </div>
@@ -338,8 +340,8 @@ section.hidden-pane{display:none;}
   <!-- HEADER -->
   <div class="header">
     <div>
-      <h1 id="greeting">Good morning, Jensi &#x273F;</h1>
-      <p id="dateLabel">Friday &#xB7; Cardio + Sculpt</p>
+      <h1 id="greeting">Good morning, Cupcake &#x273F;</h1>
+      <p id="dateLabel">Friday &#xB7; Full Body Burn</p>
     </div>
     <span class="streak-pill">&#x2605; <span id="streakVal">12</span> days</span>
   </div>
@@ -357,22 +359,22 @@ section.hidden-pane{display:none;}
   <div class="pane active" id="tab-today">
 
     <div class="greet" id="greetCard">
-      <div class="gdate" id="heroDate">Today &#xB7; April 17</div>
-      <h2 id="heroTitle">Your body is asking for softness today.</h2>
-      <p id="heroEmotion">Let&#x2019;s move gently and breathe deeply. You&#x2019;ve got this.</p>
-      <span class="focus-tag" id="focusTag">&#x1F525; Cardio + Sculpt</span>
+      <div class="gdate" id="heroDate">Today</div>
+      <h2 id="heroTitle">Let&#x2019;s sculpt today, Cupcake.</h2>
+      <p id="heroEmotion">One hour, four focus zones &#x2014; arms, lower belly, side fat, glutes. You&#x2019;ve got this.</p>
+      <span class="focus-tag" id="focusTag">&#x1F4AA; Today&#x2019;s Focus</span>
     </div>
 
     <div class="sess-toggle">
       <button class="sess-btn active" data-time="morning">
         <div class="si">&#x2600;&#xFE0F;</div>
         <div class="sl">Morning</div>
-        <div class="ss">Fat Burn &#xB7; ~30 min</div>
+        <div class="ss">Home Workout &#xB7; ~1 hour</div>
       </button>
       <button class="sess-btn" data-time="night">
         <div class="si">&#x1F319;</div>
         <div class="sl">Night</div>
-        <div class="ss">Sculpt + Posture &#xB7; ~20 min</div>
+        <div class="ss">Stretch &amp; Restore &#xB7; ~10 min</div>
       </button>
     </div>
 
@@ -393,7 +395,7 @@ section.hidden-pane{display:none;}
     <div class="sess-block">
       <div class="sess-head">
         <span class="sico">&#x2600;&#xFE0F;</span>
-        <h3>Morning &#xB7; Fat Burn</h3>
+        <h3>Morning &#xB7; Home Workout (~1 hr)</h3>
         <small id="weekMSub"></small>
       </div>
       <div class="ex-list" id="weekMList"></div>
@@ -401,7 +403,7 @@ section.hidden-pane{display:none;}
     <div class="sess-block">
       <div class="sess-head">
         <span class="sico">&#x1F319;</span>
-        <h3>Night &#xB7; Sculpt + Posture</h3>
+        <h3>Night &#xB7; Stretch &amp; Restore</h3>
         <small id="weekNSub"></small>
       </div>
       <div class="ex-list" id="weekNList"></div>
@@ -411,31 +413,31 @@ section.hidden-pane{display:none;}
   <!-- ========= CYCLE ========= -->
   <div class="pane" id="tab-cycle">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-      <p class="sec-lbl" style="margin:0;">Period window: 23 &#8211; 25 each month</p>
+      <p class="sec-lbl" style="margin:0;">Period window: 14 &#8211; 17 each month</p>
       <button class="done-btn" id="togglePeriod">Toggle Period Mode</button>
     </div>
 
     <div class="cal-wrap">
-      <h3>April 2026</h3>
+      <h3>May 2026</h3>
       <div class="cal-grid">
         <div class="wd">Mon</div><div class="wd">Tue</div><div class="wd">Wed</div><div class="wd">Thu</div>
         <div class="wd">Fri</div><div class="wd">Sat</div><div class="wd">Sun</div>
       </div>
       <div class="cal-grid" id="calGrid"></div>
       <div class="legend">
-        <div><i style="background:#FFB6CC;"></i>Period (23&#8211;25)</div>
-        <div><i style="background:#FFE9F0;"></i>Low intensity</div>
-        <div><i style="background:#E8F7EE;"></i>Normal training</div>
+        <div><i style="background:#312E81;"></i>Period (14&#8211;17)</div>
+        <div><i style="background:rgba(59,130,246,.4);"></i>Low intensity</div>
+        <div><i style="background:rgba(6,182,212,.4);"></i>Rest day</div>
       </div>
     </div>
 
     <div class="phase-card">
       <h4 id="phaseTitle">You&#x2019;re in your Follicular phase</h4>
-      <p id="phaseDesc">Your energy is rising. Great time for building strength. Surya Namaskar + light HIIT will feel amazing.</p>
+      <p id="phaseDesc">Your energy is rising. Great time for building strength. Arms + glutes + core will feel amazing.</p>
     </div>
 
     <div class="emo-card">
-      <div class="emo-ico">&#x1F337;</div>
+      <div class="emo-ico">&#x1F499;</div>
       <div>
         <h5>Emotional Support</h5>
         <p>If you feel tender, that&#x2019;s okay. Soften your plan without guilt &#x2014; rest is a form of training too.</p>
@@ -458,32 +460,32 @@ section.hidden-pane{display:none;}
   <!-- ========= DIET ========= -->
   <div class="pane" id="tab-diet">
 
-    <div class="swim-card">
-      <h4>&#x1F3CA; Swim Fat-Burn Plan</h4>
-      <p>Evenings &#xB7; 30 min &#xB7; 4&#8211;5&#xD7;/week</p>
-      <div class="swim-list">
-        <div class="swim-row"><span>Mon &#x2014; Freestyle easy pace</span><b>20 min</b></div>
-        <div class="swim-row"><span>Tue &#x2014; Breaststroke + core drills</span><b>25 min</b></div>
-        <div class="swim-row"><span>Wed &#x2014; Interval (1 fast / 2 slow)</span><b>20 min</b></div>
-        <div class="swim-row"><span>Fri &#x2014; Long steady swim</span><b>30 min</b></div>
-        <div class="swim-row"><span>Sat &#x2014; Water aerobics + legs</span><b>25 min</b></div>
+    <div class="plan-card">
+      <h4>&#x1F305; Morning Workout Window</h4>
+      <p>Home &#xB7; 1 hour &#xB7; 6 days/week</p>
+      <div class="plan-list">
+        <div class="plan-row"><span>Mon &#x2014; Arm Sculpt Day</span><b>~60 min</b></div>
+        <div class="plan-row"><span>Tue &#x2014; Lower Belly Burn</span><b>~60 min</b></div>
+        <div class="plan-row"><span>Wed &#x2014; Side Fat Melt</span><b>~60 min</b></div>
+        <div class="plan-row"><span>Thu &#x2014; Glute Day</span><b>~60 min</b></div>
+        <div class="plan-row"><span>Fri &#x2014; Full Body Burn</span><b>~60 min</b></div>
+        <div class="plan-row"><span>Sat &#x2014; Stretch &amp; Restore</span><b>~30 min</b></div>
       </div>
     </div>
 
     <div class="card">
       <p class="sec-lbl">Vegetarian Fat-Loss &#xB7; Daily Timeline</p>
       <div class="timeline">
-        <div class="tl-row"><div class="tl-time">7:00 AM</div><div class="tl-meal">Wake up &amp; warm water<small>Set a gentle intention</small></div></div>
-        <div class="tl-row"><div class="tl-time">7:30 AM</div><div class="tl-meal">Morning workout &#xB7; Fat Burn<small>Surya Namaskar + core + love handles</small></div></div>
-        <div class="tl-row"><div class="tl-time">8:30 AM</div><div class="tl-meal"><b>Power smoothie</b><small>Almonds, dates, walnuts, chia, black sesame</small></div></div>
-        <div class="tl-row"><div class="tl-time">10:30 AM</div><div class="tl-meal"><b>Fruit bowl</b><small>Papaya, pomegranate, apple</small></div></div>
-        <div class="tl-row"><div class="tl-time">1:00 PM</div><div class="tl-meal"><b>1 roti + small rice</b><small>Dal + sabzi + buttermilk</small></div></div>
-        <div class="tl-row"><div class="tl-time">4:30 PM</div><div class="tl-meal"><b>Fruits + green tea</b><small>Pre-swim snack</small></div></div>
-        <div class="tl-row"><div class="tl-time">5:30 PM</div><div class="tl-meal">&#x1F3CA; Swimming session<small>30 min &#xB7; 4&#8211;5 days/week</small></div></div>
-        <div class="tl-row"><div class="tl-time">6:15 PM</div><div class="tl-meal"><b>Coconut water</b><small>Post-swim minerals</small></div></div>
+        <div class="tl-row"><div class="tl-time">6:30 AM</div><div class="tl-meal">Wake up &amp; warm water<small>Set a gentle intention</small></div></div>
+        <div class="tl-row"><div class="tl-time">7:00 AM</div><div class="tl-meal">&#x2600;&#xFE0F; Morning workout &#xB7; ~1 hour<small>Arms + lower belly + side fat + glutes (rotates daily)</small></div></div>
+        <div class="tl-row"><div class="tl-time">8:15 AM</div><div class="tl-meal"><b>Power smoothie</b><small>Almonds, dates, walnuts, chia, black sesame</small></div></div>
+        <div class="tl-row"><div class="tl-time">11:00 AM</div><div class="tl-meal"><b>Fruit bowl</b><small>Papaya, pomegranate, apple</small></div></div>
+        <div class="tl-row"><div class="tl-time">1:30 PM</div><div class="tl-meal"><b>1 roti + small rice</b><small>Dal + sabzi + buttermilk</small></div></div>
+        <div class="tl-row"><div class="tl-time">4:30 PM</div><div class="tl-meal"><b>Fruits + green tea</b><small>Mid-afternoon snack</small></div></div>
+        <div class="tl-row"><div class="tl-time">6:00 PM</div><div class="tl-meal"><b>Roasted chana / sprouts</b><small>High-protein evening bite</small></div></div>
         <div class="tl-row"><div class="tl-time">8:00 PM</div><div class="tl-meal"><b>Light dinner</b><small>Moong dal chilla / vegetable soup + salad</small></div></div>
-        <div class="tl-row"><div class="tl-time">8:30 PM</div><div class="tl-meal">&#x1F319; Night workout &#xB7; Sculpt &amp; Posture<small>Arms + face yoga + chin tucks</small></div></div>
-        <div class="tl-row"><div class="tl-time">11:00 PM</div><div class="tl-meal">Sleep &#xB7; gratitude<small>Your body rebuilds now</small></div></div>
+        <div class="tl-row"><div class="tl-time">9:30 PM</div><div class="tl-meal">&#x1F319; Stretch &amp; restore &#xB7; 10 min<small>Cat-cow + child's pose + figure four</small></div></div>
+        <div class="tl-row"><div class="tl-time">10:30 PM</div><div class="tl-meal">Sleep &#xB7; gratitude<small>Your body rebuilds now</small></div></div>
       </div>
     </div>
 
@@ -503,20 +505,20 @@ section.hidden-pane{display:none;}
   <!-- ========= ME ========= -->
   <div class="pane" id="tab-me">
     <div class="stat-grid">
-      <div class="stat-tile"><div class="stat-lb">Streak</div><div class="stat-v">12 &#x1F525;</div><div class="stat-sub">Personal best: 18</div></div>
-      <div class="stat-tile"><div class="stat-lb">Total Workouts</div><div class="stat-v">34</div><div class="stat-sub">Morning 18 &#xB7; Night 16</div></div>
-      <div class="stat-tile"><div class="stat-lb">Swim Minutes</div><div class="stat-v">420</div><div class="stat-sub">This month</div></div>
-      <div class="stat-tile"><div class="stat-lb">Days Done</div><div class="stat-v">22</div><div class="stat-sub">April 2026</div></div>
+      <div class="stat-tile"><div class="stat-lb">Streak</div><div class="stat-v">0 &#x1F525;</div><div class="stat-sub">Day 1 — let's begin</div></div>
+      <div class="stat-tile"><div class="stat-lb">Total Workouts</div><div class="stat-v">0</div><div class="stat-sub">Morning 0 &#xB7; Night 0</div></div>
+      <div class="stat-tile"><div class="stat-lb">Workout Minutes</div><div class="stat-v">0</div><div class="stat-sub">This month</div></div>
+      <div class="stat-tile"><div class="stat-lb">Days Done</div><div class="stat-v">0</div><div class="stat-sub">May 2026</div></div>
     </div>
 
     <div class="card" style="margin-bottom:16px;">
       <p class="sec-lbl">&#x1F3C5; Badges</p>
       <div class="badge-grid">
-        <div class="badge-tile earned"><div class="bi">&#x1F338;</div><b>First Bloom</b><small>Day 1 done</small></div>
-        <div class="badge-tile earned"><div class="bi">&#x1F525;</div><b>Week of Fire</b><small>7-day streak</small></div>
-        <div class="badge-tile earned"><div class="bi">&#x1F9D8;</div><b>Yogi Soul</b><small>10 Surya rounds</small></div>
+        <div class="badge-tile"><div class="bi">&#x1F338;</div><b>First Bloom</b><small>Day 1 done</small></div>
+        <div class="badge-tile"><div class="bi">&#x1F525;</div><b>Week of Fire</b><small>7-day streak</small></div>
+        <div class="badge-tile"><div class="bi">&#x1F4AA;</div><b>Arm Queen</b><small>20 arm sessions</small></div>
         <div class="badge-tile"><div class="bi">&#x1F48E;</div><b>Iron Core</b><small>30 days</small></div>
-        <div class="badge-tile"><div class="bi">&#x1F3CA;</div><b>Mermaid</b><small>20 swims</small></div>
+        <div class="badge-tile"><div class="bi">&#x1F351;</div><b>Glute Goddess</b><small>20 glute days</small></div>
         <div class="badge-tile"><div class="bi">&#x2728;</div><b>Glow-Up</b><small>30-day streak</small></div>
       </div>
     </div>
@@ -574,60 +576,160 @@ section.hidden-pane{display:none;}
 const EX = {
   morning: [
     {
-      id:"surya", name:"Surya Namaskar",
-      tag:"Warm-up", meta:["5 rounds","8 min","Full body"],
-      yt:"73sjOu0g58M", source:"Lily Cushman (certified yoga)",
-      ytSearch:"surya namaskar beginners yoga with adriene",
+      id:"warm-up", name:"Jumping Jacks + Arm Circles",
+      tag:"Warm-up", meta:["3 × 45 sec","5 min","Full body"],
+      yt:"c4DAnQ6DtF8", source:"Howcast (certified trainer)",
+      ytSearch:"jumping jacks arm circles warm up routine",
       refLabels:["Start","Mid","End"],
-      steps:["Stand tall at the front of your mat, palms at heart center.","Inhale — sweep arms overhead, gentle backbend.","Exhale — fold forward, soften your knees if needed.","Step back into plank, lower to cobra, lift to downward dog.","Step forward and rise up, returning to namaste."],
-      mistakes:["Holding your breath instead of flowing with inhale/exhale","Locking your knees on the forward fold","Collapsing shoulders in downward dog"]
+      steps:["Stand tall, feet together, arms relaxed at your sides.","Jump feet wide while sweeping arms overhead — repeat for 30 seconds.","Pause, then make 20 small forward arm circles, 20 backward.","Roll shoulders, shake out hands, breathe deep."],
+      mistakes:["Landing flat-footed and jarring the knees","Letting arms swing only halfway up","Skipping the breath — stay loose, not stiff"]
+    },
+    {
+      id:"wall-push", name:"Wall Push-Up",
+      tag:"Arms", meta:["3 × 15","6 min","Arms · Shoulders"],
+      yt:"YWw-3rGaoT0", source:"Pilates On Demand with Lindsay",
+      ytSearch:"wall push up beginner arm tone women home",
+      refLabels:["Start","Lower","Press"],
+      steps:["Stand an arm's length from the wall, palms at chest height.","Inhale — bend elbows, lower chest toward wall.","Exhale — press back to start, shoulders down.","Keep body in a straight line, no hip sag."],
+      mistakes:["Elbows flaring too wide","Standing too close to the wall (reduces range)","Dropping head forward"]
+    },
+    {
+      id:"tri-dip", name:"Chair Triceps Dip",
+      tag:"Arms", meta:["3 × 12","6 min","Triceps"],
+      yt:"6kALZikXxLc", source:"Howcast (certified trainer)",
+      ytSearch:"tricep dips chair arm toning home workout",
+      refLabels:["Start","Lower","Rise"],
+      steps:["Sit on a sturdy chair, hands gripping the edge beside hips.","Slide forward, supporting weight on arms.","Lower hips until elbows bend 90°.","Push through palms to rise. Keep elbows narrow."],
+      mistakes:["Elbows flaring wide — keep them behind you","Dropping too low (shoulder strain)","Using legs to push up instead of triceps"]
+    },
+    {
+      id:"arm-pulses", name:"Arm Pulse + Hold",
+      tag:"Arms", meta:["3 × 30 sec","5 min","Shoulders · Arms"],
+      yt:"kfP_9z-BtmA", source:"5-Min Toned Arms (no equipment)",
+      ytSearch:"5 min toned arms workout no equipment",
+      refLabels:["Out","Pulse","Up"],
+      steps:["Stand tall, arms straight out to the sides at shoulder height.","Pulse arms tiny circles forward for 15 seconds.","Reverse direction for 15 seconds — keep arms lifted.","Lower, shake out, repeat. Squeeze shoulder blades down."],
+      mistakes:["Letting arms drop below shoulder height","Hunching shoulders up to ears","Rushing the pulses — slow burn is the goal"]
+    },
+    {
+      id:"leg-raise", name:"Lying Leg Raise",
+      tag:"Lower belly", meta:["3 × 15","6 min","Lower abs"],
+      yt:"JB2oyawG9KI", source:"Howcast (certified trainer)",
+      ytSearch:"lying leg raise lower belly proper form",
+      refLabels:["Start","Up","Lower"],
+      steps:["Lie flat, hands tucked under glutes for support.","Press lower back firmly into the mat.","Lift legs straight up to 90°, then lower slowly.","Stop just before feet touch the floor — squeeze lower abs."],
+      mistakes:["Letting the lower back arch off the floor","Swinging legs instead of controlling the movement","Holding breath — exhale on the lift"]
+    },
+    {
+      id:"reverse-crunch", name:"Reverse Crunch",
+      tag:"Lower belly", meta:["3 × 15","5 min","Lower abs"],
+      yt:"7rRWy7-Gokg", source:"Howcast (certified trainer)",
+      ytSearch:"reverse crunch lower abs proper form howcast",
+      refLabels:["Start","Curl","Lower"],
+      steps:["Lie on your back, knees bent, hands beside hips.","Bring knees toward chest while curling hips off the floor.","Pause at the top — squeeze lower abs.","Lower slowly with control."],
+      mistakes:["Using momentum to swing legs","Pulling with hip flexors instead of abs","Crunching the neck forward"]
+    },
+    {
+      id:"scissor-kick", name:"Scissor Kicks",
+      tag:"Lower belly", meta:["3 × 30","5 min","Lower abs"],
+      yt:"XyLTb8ZTh48", source:"LIVESTRONG (certified trainer)",
+      ytSearch:"scissor kicks lower abs flutter kicks",
+      refLabels:["Start","Kick","Switch"],
+      steps:["Lie flat, hands tucked under glutes, legs extended.","Lift both legs a few inches off the floor.","Cross right leg over left, then left over right — keep them low.","Keep lower back glued to the mat."],
+      mistakes:["Lower back arching off the floor","Lifting legs too high — keep them low","Holding breath — keep it flowing"]
     },
     {
       id:"bicycle", name:"Bicycle Crunch",
-      tag:"Belly burn", meta:["3 × 20","4 min","Core"],
+      tag:"Side fat", meta:["3 × 20","5 min","Obliques"],
       yt:"9FGilxCbdz8", source:"LIVESTRONG (certified trainer)",
-      ytSearch:"bicycle crunch proper form madfit",
+      ytSearch:"bicycle crunch proper form madfit obliques",
       refLabels:["Start","Mid","End"],
       steps:["Lie flat, lower back pressed into the mat, fingertips behind ears.","Lift shoulder blades and draw right elbow to left knee.","Switch sides smoothly — extend opposite leg straight.","Keep the motion slow and breath-led, not rushed."],
       mistakes:["Yanking the neck with your hands","Going fast and losing core engagement","Lower back lifting off the floor"]
     },
     {
-      id:"side-plank", name:"Side Plank Dip",
-      tag:"Love handles", meta:["3 × 12 each","5 min","Obliques"],
-      yt:"K2VljzCC16g", source:"Howcast (certified trainer)",
-      ytSearch:"side plank hip dip chloe ting love handles",
-      refLabels:["Start","Dip","Rise"],
-      steps:["Lie on your side, elbow under shoulder, legs stacked.","Lift hips until body is a straight diagonal line.","Gently dip hip toward floor, then lift — squeeze obliques.","Breathe steadily through each rep."],
-      mistakes:["Hips sagging — break line from head to feet","Shoulder collapsing into elbow","Rushing through reps — slow is stronger"]
-    },
-    {
-      id:"sumo-squat", name:"Sumo Squat Pulse",
-      tag:"Thigh slim", meta:["3 × 20","5 min","Inner thigh"],
-      yt:"LAeOJH_OIks", source:"Pamela Reif",
-      ytSearch:"sumo squat pulse inner thigh pamela reif",
-      refLabels:["Stance","Down","Pulse"],
-      steps:["Stand wider than shoulders, toes turned 45°.","Lower into a deep squat, keeping chest tall.","Pulse down 2 inches, rise 2 inches — stay low.","Squeeze inner thighs on every rise."],
-      mistakes:["Knees caving inward — push them out gently","Heels lifting off the floor","Rounding the lower back"]
-    },
-    {
       id:"russian-twist", name:"Russian Twist",
-      tag:"Waist trim", meta:["3 × 30","4 min","Obliques"],
+      tag:"Side fat", meta:["3 × 30","5 min","Obliques"],
       yt:"wkD8rjkodUI", source:"Howcast (certified trainer)",
       ytSearch:"russian twist waist oblique blogilates form",
       refLabels:["Center","Twist L","Twist R"],
       steps:["Sit with knees bent, heels light on floor, lean back slightly.","Clasp hands together or hold a light object.","Rotate torso left, then right — hips stay square.","Lift feet for more challenge when ready."],
       mistakes:["Only moving arms, not torso","Rounding spine deeply","Holding your breath"]
+    },
+    {
+      id:"side-plank", name:"Side Plank Hip Dip",
+      tag:"Side fat", meta:["3 × 12 each","6 min","Obliques"],
+      yt:"K2VljzCC16g", source:"Howcast (certified trainer)",
+      ytSearch:"side plank hip dip chloe ting side fat",
+      refLabels:["Start","Dip","Rise"],
+      steps:["Lie on your side, elbow under shoulder, legs stacked.","Lift hips until body is a straight diagonal line.","Gently dip hip toward floor, then lift — squeeze obliques.","Breathe steadily through each rep."],
+      mistakes:["Hips sagging — break line from head to feet","Shoulder collapsing into elbow","Rushing through reps — slow is stronger"]
+    },
+    {
+      id:"glute-bridge", name:"Glute Bridge",
+      tag:"Glutes", meta:["3 × 20","6 min","Glutes"],
+      yt:"OUgsJ8-Vi0E", source:"Howcast (certified trainer)",
+      ytSearch:"glute bridge proper form beginners home",
+      refLabels:["Start","Lift","Squeeze"],
+      steps:["Lie on your back, knees bent, feet flat hip-width apart.","Press through heels and lift hips toward the ceiling.","Squeeze glutes hard at the top — pause for 2 seconds.","Lower slowly back to the mat."],
+      mistakes:["Pushing with the lower back instead of glutes","Letting knees collapse inward","Lifting too high and over-arching the spine"]
+    },
+    {
+      id:"donkey-kick", name:"Donkey Kick",
+      tag:"Glutes", meta:["3 × 15 each","5 min","Glutes"],
+      yt:"QreOl2tgC-8", source:"Well+Good (certified trainer)",
+      ytSearch:"donkey kicks glute exercise proper form well good",
+      refLabels:["Start","Kick","Return"],
+      steps:["Start on all fours, wrists under shoulders, knees under hips.","Keep knee bent at 90° as you lift the heel toward the ceiling.","Squeeze glutes at the top — don't arch your back.","Lower slowly with control. Switch sides."],
+      mistakes:["Arching the lower back instead of using glutes","Swinging the leg up with momentum","Letting hips rotate sideways"]
+    },
+    {
+      id:"fire-hydrant", name:"Fire Hydrant",
+      tag:"Glutes", meta:["3 × 15 each","5 min","Glutes · Hips"],
+      yt:"CAZZz7uP-Ok", source:"BJ Gaddour (certified trainer)",
+      ytSearch:"fire hydrant glute exercise proper form",
+      refLabels:["Start","Lift","Lower"],
+      steps:["Start on all fours, core engaged, back flat.","Keeping knee bent, lift one leg out to the side.","Stop at hip height — squeeze the outer glute.","Lower slowly. Repeat all reps before switching sides."],
+      mistakes:["Leaning to the opposite side as leg lifts","Swinging the leg up too fast","Rounding the lower back"]
+    },
+    {
+      id:"squat-pulse", name:"Sumo Squat Pulse",
+      tag:"Glutes", meta:["3 × 20","5 min","Glutes · Thighs"],
+      yt:"LAeOJH_OIks", source:"Pamela Reif",
+      ytSearch:"sumo squat pulse glutes inner thigh pamela reif",
+      refLabels:["Stance","Down","Pulse"],
+      steps:["Stand wider than shoulders, toes turned out 45°.","Lower into a deep squat, keeping chest tall.","Pulse down 2 inches, rise 2 inches — stay low.","Squeeze glutes and inner thighs on every rise."],
+      mistakes:["Knees caving inward — push them out gently","Heels lifting off the floor","Rounding the lower back"]
     }
   ],
   night: [
     {
-      id:"tri-dip", name:"Triceps Dips",
-      tag:"Arm sculpt", meta:["3 × 12","4 min","Arms"],
-      yt:"6kALZikXxLc", source:"Howcast (certified trainer)",
-      ytSearch:"tricep dips chair arm toning madfit",
-      refLabels:["Start","Lower","Rise"],
-      steps:["Sit on a stable chair, hands gripping the edge beside hips.","Slide forward, supporting weight on arms.","Lower hips until elbows bend 90°.","Push through palms to rise. Keep elbows narrow."],
-      mistakes:["Elbows flaring wide — keep them behind you","Dropping too low (shoulder strain)","Using legs to push up instead of triceps"]
+      id:"cat-cow", name:"Cat-Cow Flow",
+      tag:"Spine", meta:["10 rounds","3 min","Back"],
+      
+      yt:"kqnua4rHVVA", source:"Howcast (certified yoga instructor)",
+      ytSearch:"cat cow yoga with adriene gentle spine",
+      refLabels:["Cat","Cow","Flow"],
+      steps:["Come to hands and knees — wrists under shoulders, knees under hips.","Inhale — drop belly, lift chest and tailbone (Cow).","Exhale — round spine, tuck chin (Cat).","Flow slowly, matching breath to movement."],
+      mistakes:["Moving too fast, skipping breath","Locking elbows","Sinking into shoulders"]
+    },
+    {
+      id:"child-pose", name:"Child's Pose",
+      tag:"Stretch", meta:["3 × 30 sec","2 min","Hips · Back"],
+      yt:"2MJGg-dUKh0", source:"Yoga with Adriene",
+      ytSearch:"child pose yoga with adriene stretch",
+      refLabels:["Start","Sink","Hold"],
+      steps:["Kneel on the mat, big toes touching, knees wide.","Sit back onto heels and walk hands forward.","Rest forehead on the mat, arms extended or by your sides.","Breathe slowly — let hips sink deeper with each exhale."],
+      mistakes:["Tensing shoulders instead of relaxing them","Forcing hips down — let gravity do the work","Holding breath instead of softening"]
+    },
+    {
+      id:"figure-four", name:"Figure-Four Stretch",
+      tag:"Glute release", meta:["2 × 30 sec each","3 min","Hips · Glutes"],
+      yt:"OcfcKXTaEkA", source:"Well+Good (certified trainer)",
+      ytSearch:"figure four stretch hip glute release well good",
+      refLabels:["Start","Cross","Pull"],
+      steps:["Lie on your back, knees bent, feet flat.","Cross right ankle over left thigh.","Reach through and pull the left thigh toward chest.","Breathe deeply — switch sides after 30 seconds."],
+      mistakes:["Lifting head and tensing the neck","Pulling too hard — keep it gentle","Losing the foot flex on the crossed leg"]
     },
     {
       id:"chin-tuck", name:"Chin Tucks",
@@ -637,42 +739,6 @@ const EX = {
       refLabels:["Neutral","Tuck","Release"],
       steps:["Sit or stand tall, shoulders relaxed.","Gently glide your head straight back (double-chin feel).","Hold 3 seconds, release slowly.","Breathe — don't strain the jaw."],
       mistakes:["Tilting chin up or down instead of back","Clenching jaw","Hunching shoulders during the move"]
-    },
-    {
-      id:"wall-push", name:"Wall Push-Up",
-      tag:"Arm tone", meta:["3 × 15","4 min","Shoulders"],
-      yt:"YWw-3rGaoT0", source:"Pilates On Demand with Lindsay",
-      ytSearch:"wall push up beginner arm tone women",
-      refLabels:["Start","Lower","Press"],
-      steps:["Stand an arm's length from the wall, palms at chest height.","Inhale — bend elbows, lower chest toward wall.","Exhale — press back to start, shoulders down.","Keep body in a straight line, no hip sag."],
-      mistakes:["Elbows flaring too wide","Standing too close to the wall (reduces range)","Dropping head forward"]
-    },
-    {
-      id:"face-jaw", name:"Jawline Glide",
-      tag:"Anti-aging", meta:["2 × 10","2 min","Face"],
-      yt:"6MfdtgF_YxM", source:"Koko Face Yoga",
-      ytSearch:"jawline face yoga koko face yoga anti aging",
-      refLabels:["Start","Glide","Lift"],
-      steps:["Tilt head slightly back, close lips.","Push lower jaw forward, feel a stretch under chin.","Hold 5 seconds, release.","Repeat — breathe through nose."],
-      mistakes:["Clenching teeth","Tensing shoulders","Forcing the movement — it should feel light"]
-    },
-    {
-      id:"cheek-lift", name:"Cheek Lifter",
-      tag:"Glow", meta:["2 × 10","2 min","Cheeks"],
-      yt:"NNAi7goh138", source:"Face Yoga Method (Fumiko Takatsu)",
-      ytSearch:"cheek lift face yoga fumiko takatsu",
-      refLabels:["Rest","Lift","Hold"],
-      steps:["Open mouth in an 'O' shape.","Smile gently — feel cheeks lift up.","Place fingers lightly on top of cheeks for resistance.","Hold 10 seconds, release, breathe."],
-      mistakes:["Wrinkling forehead","Squeezing eyes shut","Pressing fingers too hard"]
-    },
-    {
-      id:"cat-cow", name:"Cat-Cow Flow",
-      tag:"Spine", meta:["10 rounds","3 min","Back"],
-      yt:"kqnua4rHVVA", source:"Howcast (certified yoga instructor)",
-      ytSearch:"cat cow yoga with adriene gentle spine",
-      refLabels:["Cat","Cow","Flow"],
-      steps:["Come to hands and knees — wrists under shoulders, knees under hips.","Inhale — drop belly, lift chest and tailbone (Cow).","Exhale — round spine, tuck chin (Cat).","Flow slowly, matching breath to movement."],
-      mistakes:["Moving too fast, skipping breath","Locking elbows","Sinking into shoulders"]
     }
   ]
 };
@@ -681,13 +747,13 @@ const EX = {
    WEEKLY ROTATION  (0=Sun ... 6=Sat)
    ============================================================ */
 const WEEKLY = {
-  0:{ label:"Gentle Recovery",  morning:["surya"],                              night:["cat-cow","face-jaw","cheek-lift"],     heroTitle:"Rest deeply — your body rebuilds today.",      heroEmo:"Sunday is sacred. Light movement, warm tea, and kindness to yourself.", focusTag:"🌸 Gentle Recovery" },
-  1:{ label:"Core Blast",       morning:["surya","bicycle","russian-twist","side-plank"], night:["tri-dip","chin-tuck","wall-push"],    heroTitle:"Fire up that core — it’s Monday magic.",    heroEmo:"A strong core = a strong week. You’re already winning by showing up.", focusTag:"🔥 Core Blast" },
-  2:{ label:"Love Handles + Arms", morning:["surya","side-plank","russian-twist","bicycle"], night:["tri-dip","wall-push","face-jaw","cat-cow"], heroTitle:"Hello, waistline. Let’s sculpt today.", heroEmo:"Side planks and twists are your love-handle erasers. Stay slow and deliberate.", focusTag:"💃 Love Handles + Arms" },
-  3:{ label:"Full Body Burn",   morning:["surya","bicycle","sumo-squat","side-plank"], night:["chin-tuck","cheek-lift","cat-cow"],   heroTitle:"Full body today — head to toe.",            heroEmo:"Midweek is your peak energy window. Surya + squats + core = full-body glow.", focusTag:"🔥 Full Body Burn" },
-  4:{ label:"Thigh Slim + Posture", morning:["surya","sumo-squat","bicycle"],      night:["chin-tuck","wall-push","cat-cow"],    heroTitle:"Strong, lean legs — that’s today’s story.", heroEmo:"Sumo pulses + bicycle crunches reduce thigh friction gently over time.", focusTag:"🦵 Thigh Slim + Posture" },
-  5:{ label:"Cardio + Sculpt",  morning:["surya","bicycle","sumo-squat","russian-twist"], night:["tri-dip","face-jaw","cheek-lift"],  heroTitle:"Friday energy — let’s burn and glow.",   heroEmo:"End the week strong. Cardio bursts + toning tonight — you’ve earned the weekend.", focusTag:"🔥 Cardio + Sculpt" },
-  6:{ label:"Stretch + Restore",morning:["surya","side-plank"],                  night:["cat-cow","cheek-lift","face-jaw"],    heroTitle:"Soften and restore — Saturday is for you.",  heroEmo:"Flow slowly. Stretch deeply. Rest is not laziness — it’s part of the plan.", focusTag:"🧘 Stretch + Restore" }
+  0:{ label:"Gentle Recovery",   morning:["warm-up","glute-bridge","cat-cow"],                                            night:["child-pose","figure-four","cat-cow"], heroTitle:"Rest deeply — your body rebuilds today.",       heroEmo:"Sunday is sacred. Light movement, warm tea, and kindness to yourself.",                  focusTag:"💙 Gentle Recovery" },
+  1:{ label:"Arm Sculpt",        morning:["warm-up","wall-push","tri-dip","arm-pulses","glute-bridge"],                   night:["chin-tuck","cat-cow","child-pose"],   heroTitle:"Sculpt those arms — Monday strength.",          heroEmo:"Tank-top arms start with showing up. Slow reps beat fast every time.",                    focusTag:"💪 Arm Sculpt" },
+  2:{ label:"Lower Belly Burn",  morning:["warm-up","leg-raise","reverse-crunch","scissor-kick","bicycle"],               night:["cat-cow","figure-four","chin-tuck"],  heroTitle:"Wake up the lower belly today.",                heroEmo:"Stubborn lower pooch responds to slow, controlled work — breathe into every rep.",        focusTag:"🔥 Lower Belly Burn" },
+  3:{ label:"Side Fat Melt",     morning:["warm-up","russian-twist","side-plank","bicycle","glute-bridge"],               night:["child-pose","cat-cow","chin-tuck"],   heroTitle:"Hello, waistline — let's carve today.",         heroEmo:"Side planks and twists are your side-fat erasers. Stay slow and deliberate.",             focusTag:"💃 Side Fat Melt" },
+  4:{ label:"Glute Day",         morning:["warm-up","glute-bridge","donkey-kick","fire-hydrant","squat-pulse"],           night:["figure-four","child-pose","cat-cow"], heroTitle:"Strong, lifted glutes — that's today's story.", heroEmo:"Glutes are your power center. Squeeze hard at the top of every rep.",                     focusTag:"🍑 Glute Day" },
+  5:{ label:"Full Body Burn",    morning:["warm-up","wall-push","bicycle","side-plank","glute-bridge","donkey-kick"],     night:["chin-tuck","cat-cow","child-pose"],   heroTitle:"Friday energy — let's burn and glow.",          heroEmo:"All four zones in one hour — arms, lower belly, side fat, glutes. Finish the week strong.", focusTag:"🔥 Full Body Burn" },
+  6:{ label:"Stretch & Restore", morning:["warm-up","glute-bridge","cat-cow","child-pose"],                               night:["figure-four","child-pose","cat-cow"], heroTitle:"Soften and restore — Saturday is for you.",     heroEmo:"Flow slowly. Stretch deeply. Rest is part of the plan.",                                  focusTag:"🧘 Stretch & Restore" }
 };
 
 /* ============================================================
@@ -715,7 +781,7 @@ function dowDate(dow) {
   d.setDate(d.getDate() + (dow - d.getDay()));
   return d.toISOString().slice(0,10);
 }
-function doneKey(dow, time) { return `jensi_${dowDate(dow)}_${time}`; }
+function doneKey(dow, time) { return `cupcake_${dowDate(dow)}_${time}`; }
 function getDone(dow, time) { return JSON.parse(localStorage.getItem(doneKey(dow,time)) || '[]'); }
 function markDone(dow, time, id) {
   const arr = getDone(dow, time);
@@ -755,9 +821,9 @@ function buildRow(ex, dow, time, num, onDone) {
     this.classList.toggle('checked', nowDone);
     this.textContent = nowDone ? '\u2713 Done' : 'Mark Done';
     row.querySelector('.ex-num').style.background = nowDone
-      ? 'linear-gradient(135deg,var(--mint),#3C8C69)'
+      ? 'linear-gradient(135deg,#06B6D4,#0E7490)'
       : 'linear-gradient(135deg,var(--rose),var(--peach))';
-    if (nowDone) showToast('Beautiful work, Jensi \uD83C\uDF38');
+    if (nowDone) showToast('Beautiful work, Cupcake \uD83D\uDC99');
     onDone();
   });
   return row;
@@ -896,14 +962,19 @@ $('#modalWrap').addEventListener('click', e => { if (e.target === $('#modalWrap'
    ============================================================ */
 function renderCal() {
   const grid = $('#calGrid'); grid.innerHTML = '';
-  const td = new Date().getDate();
-  for (let i=0; i<2; i++) { const s=document.createElement('div'); s.className='cd'; s.style.visibility='hidden'; grid.appendChild(s); }
-  for (let d=1; d<=30; d++) {
+  const now = new Date();
+  const td = now.getDate();
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+  const monthEnd = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+  // Mon-first calendar: shift Sunday(0) to position 6
+  const offset = (monthStart.getDay() + 6) % 7;
+  for (let i=0; i<offset; i++) { const s=document.createElement('div'); s.className='cd'; s.style.visibility='hidden'; grid.appendChild(s); }
+  for (let d=1; d<=monthEnd; d++) {
     const c = document.createElement('div'); c.className='cd'; c.textContent=d;
     if (d===td) c.classList.add('today');
-    if (d>=23&&d<=25) c.classList.add('period');
-    else if (d===21||d===22||d===26||d===27) c.classList.add('low');
-    else if ([2,6,10,14,18,28].includes(d)) c.classList.add('rest');
+    if (d>=14&&d<=17) c.classList.add('period');
+    else if (d===12||d===13||d===18||d===19) c.classList.add('low');
+    else if ([3,10,24,31].includes(d)) c.classList.add('rest');
     grid.appendChild(c);
   }
 }
@@ -915,18 +986,18 @@ renderCal();
 function setPeriodMode(on) {
   document.body.classList.toggle('period-mode', on);
   if (on) {
-    $('#heroTitle').textContent = "Soft day. Your body is working hard, Jensi.";
-    $('#heroEmotion').textContent = "Today is for rest, warm food, and gentle stretches. No HIIT — you’ve already earned today.";
-    $('#phaseTitle').textContent = "You’re in your Period phase";
-    $('#phaseDesc').textContent = "Full recovery mode 🩷 Stick to restorative yoga, Child’s pose, and legs-up-the-wall. Warm water with jaggery helps cramps.";
-    showToast("Period mode on — rest deeply 🌸");
+    $('#heroTitle').textContent = "Soft day. Your body is working hard, Cupcake.";
+    $('#heroEmotion').textContent = "Today is for rest, warm food, and gentle stretches. No high-intensity work — you've already earned today.";
+    $('#phaseTitle').textContent = "You're in your Period phase";
+    $('#phaseDesc').textContent = "Full recovery mode 💙 Stick to restorative stretches, Child's pose, and legs-up-the-wall. Warm water with jaggery helps cramps.";
+    showToast("Period mode on — rest deeply 💙");
   } else {
     const plan = WEEKLY[todayDow];
     $('#heroTitle').textContent = plan.heroTitle;
     $('#heroEmotion').textContent = plan.heroEmo;
-    $('#phaseTitle').textContent = "You’re in your Follicular phase";
-    $('#phaseDesc').textContent = "Your energy is rising. Great time for building strength. Surya Namaskar + light HIIT will feel amazing.";
-    showToast("Back to regular flow 🌼");
+    $('#phaseTitle').textContent = "You're in your Follicular phase";
+    $('#phaseDesc').textContent = "Your energy is rising. Great time for building strength. Arms + glutes + core will feel amazing.";
+    showToast("Back to regular flow 🖤");
   }
 }
 $('#togglePeriod').addEventListener('click', () => setPeriodMode(!document.body.classList.contains('period-mode')));
@@ -972,13 +1043,13 @@ fillMini($('#postureList'), posture);
 /* ============================================================
    CHECKLIST
    ============================================================ */
-const checklist = ["Warm water on waking","Morning workout done","Power smoothie","Mid-day fruits","Swim session","Night workout done","Face yoga (5 min)","In bed by 11 PM"];
+const checklist = ["Warm water on waking","Morning workout done (~1 hr)","Power smoothie","Mid-day fruits","Evening sprouts/chana","Night stretch & restore","Face yoga (5 min)","In bed by 10:30 PM"];
 const cl = $('#checkList');
 checklist.forEach((t,i) => {
   const it = document.createElement('div');
   it.className = 'cl-row' + (i < 3 ? ' done' : '');
   it.innerHTML = `<div class="cl-box">✓</div><div class="cl-label">${t}</div>`;
-  it.addEventListener('click', () => { it.classList.toggle('done'); if (it.classList.contains('done')) showToast('Check! Keep going 💗'); });
+  it.addEventListener('click', () => { it.classList.toggle('done'); if (it.classList.contains('done')) showToast('Check! Keep going 💙'); });
   cl.appendChild(it);
 });
 
@@ -1000,7 +1071,7 @@ const hr = now.getHours();
 const greet = hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening';
 const wkDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-$('#greeting').textContent = `${greet}, Jensi ✿`;
+$('#greeting').textContent = `${greet}, Cupcake 💙`;
 $('#heroDate').textContent = `Today · ${months[now.getMonth()]} ${now.getDate()}`;
 $('#dateLabel').textContent = `${wkDays[now.getDay()]} · ${WEEKLY[now.getDay()].label}`;
 const todayPlan = WEEKLY[now.getDay()];
