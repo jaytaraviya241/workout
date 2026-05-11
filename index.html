@@ -1043,7 +1043,7 @@ $$('.tab-btn, #navBottom button').forEach(btn => {
    MODAL
    ============================================================ */
 function openModal(id) {
-  const ex = [...EX.morning, ...EX.night].find(e => e.id === id);
+  const ex = Object.values(EX).flat().find(e => e.id === id);
   if (!ex) return;
   $('#mTitle').textContent = ex.name;
   $('#mSub').textContent = ex.tag + ' · Watch this short demo first';
