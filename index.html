@@ -107,15 +107,17 @@ body::before{
 }
 
 /* ---- SESSION TOGGLE ---- */
-.sess-toggle{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
+.sess-toggle{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;margin-bottom:14px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.sess-toggle::-webkit-scrollbar{display:none;}
 .sess-btn{
+  flex:none;min-width:108px;
   border:1.5px solid var(--line);background:var(--card);
-  border-radius:18px;padding:16px 12px;
+  border-radius:18px;padding:14px 10px;
   text-align:center;cursor:pointer;font-family:inherit;transition:all .2s;
 }
-.sess-btn .si{font-size:22px;margin-bottom:6px;}
-.sess-btn .sl{font-size:14px;font-weight:700;color:var(--ink2);}
-.sess-btn .ss{font-size:11px;color:var(--ink3);margin-top:2px;}
+.sess-btn .si{font-size:20px;margin-bottom:4px;}
+.sess-btn .sl{font-size:13px;font-weight:700;color:var(--ink2);}
+.sess-btn .ss{font-size:10px;color:var(--ink3);margin-top:2px;}
 .sess-btn.active{
   border-color:var(--rose);
   background:linear-gradient(160deg,#0F1B3D,#141A2E);
@@ -329,7 +331,7 @@ section.hidden-pane{display:none;}
     <span class="skip-ico">&#x26A1;</span>
     <div class="skip-text">
       <strong>No skipping, Cupcake!</strong>
-      Skipping any day (except period days 14&#8211;17) = snaps penalty. Show up every morning &#8212; your future self is watching.
+      Skipping any day (except period days 14&#8211;17) = EXTRA snaps penalty. Show up every morning &#8212; your future self is watching.
     </div>
     <button class="skip-close" id="skipClose">&#x2715;</button>
   </div>
@@ -368,13 +370,28 @@ section.hidden-pane{display:none;}
     <div class="sess-toggle">
       <button class="sess-btn active" data-time="morning">
         <div class="si">&#x2600;&#xFE0F;</div>
-        <div class="sl">Morning</div>
-        <div class="ss">Home Workout &#xB7; ~1 hour</div>
+        <div class="sl">Strength</div>
+        <div class="ss">~1 hour</div>
+      </button>
+      <button class="sess-btn" data-time="yoga">
+        <div class="si">&#x1F9D8;</div>
+        <div class="sl">Yoga</div>
+        <div class="ss">~30 min</div>
+      </button>
+      <button class="sess-btn" data-time="pilates">
+        <div class="si">&#x1F938;</div>
+        <div class="sl">Pilates</div>
+        <div class="ss">~30 min</div>
+      </button>
+      <button class="sess-btn" data-time="zumba">
+        <div class="si">&#x1F483;</div>
+        <div class="sl">Zumba</div>
+        <div class="ss">~30 min</div>
       </button>
       <button class="sess-btn" data-time="night">
         <div class="si">&#x1F319;</div>
-        <div class="sl">Night</div>
-        <div class="ss">Stretch &amp; Restore &#xB7; ~10 min</div>
+        <div class="sl">Stretch</div>
+        <div class="ss">~10 min</div>
       </button>
     </div>
 
@@ -740,6 +757,93 @@ const EX = {
       steps:["Sit or stand tall, shoulders relaxed.","Gently glide your head straight back (double-chin feel).","Hold 3 seconds, release slowly.","Breathe — don't strain the jaw."],
       mistakes:["Tilting chin up or down instead of back","Clenching jaw","Hunching shoulders during the move"]
     }
+  ],
+  yoga: [
+    {
+      id:"yoga-fullbody", name:"30-min Full Body Yoga",
+      tag:"Yoga", meta:["~30 min","No props","Full body"],
+      yt:"6hZIzMpHl-c", source:"Yoga with Kassandra",
+      ytSearch:"yoga with kassandra 30 min full body beginner",
+      refLabels:["Warm","Flow","Cool"],
+      steps:["Roll out a mat — no props needed.","Follow along at your own pace; modify any pose that feels too deep.","Breathe steadily — let exhales soften you into each shape.","End in stillness and feel the calm."],
+      mistakes:["Forcing past your edge","Holding your breath","Comparing your range to the instructor's — meet your body where it is today"]
+    },
+    {
+      id:"yoga-strength", name:"30-min Yoga for Strength",
+      tag:"Yoga", meta:["~30 min","No props","Strength + flex"],
+      yt:"No2u_Dq_9ho", source:"Yoga with Kassandra",
+      ytSearch:"yoga with kassandra 30 min strength flexibility beginner",
+      refLabels:["Warm","Build","Cool"],
+      steps:["Move slowly; let the heat build through the flow.","Engage your core in every standing pose.","Pause in transitions — control beats speed.","Cool down fully before standing up."],
+      mistakes:["Skipping the warm-up","Locking out joints in standing poses","Rushing through transitions"]
+    },
+    {
+      id:"yoga-gentle", name:"30-min Gentle Yoga Flow",
+      tag:"Yoga", meta:["~30 min","No props","Gentle"],
+      yt:"1VM3a2ojlEM", source:"Yoga with Kassandra",
+      ytSearch:"yoga with kassandra 30 min gentle stretch flow",
+      refLabels:["Open","Flow","Rest"],
+      steps:["Begin seated — connect to your breath for one full minute.","Move slowly between poses; no rush today.","Notice tight spots without judgment.","End in savasana for at least 2 minutes."],
+      mistakes:["Skipping the breath work","Pushing into a stretch","Cutting the savasana short"]
+    }
+  ],
+  pilates: [
+    {
+      id:"pilates-fullbody", name:"30-min Full Body Pilates",
+      tag:"Pilates", meta:["~30 min","No equipment","Full body"],
+      yt:"TbYkJXqdUP0", source:"Move With Nicole",
+      ytSearch:"move with nicole 30 min full body beginner pilates",
+      refLabels:["Warm","Work","Stretch"],
+      steps:["Roll out the spine with a few gentle stretches.","Engage your deep core — belly button toward spine.","Move with control — small range, big intention.","Cool down with hip flexor and hamstring stretches."],
+      mistakes:["Holding tension in shoulders or jaw","Rushing reps — Pilates is slow on purpose","Letting the lower back arch off the mat"]
+    },
+    {
+      id:"pilates-glutes", name:"30-min Pilates Glute Burn",
+      tag:"Pilates", meta:["~30 min","No equipment","Glutes"],
+      yt:"qpyHGCCx2cM", source:"Flow with Mira",
+      ytSearch:"30 min pilates glute workout beginner",
+      refLabels:["Warm","Burn","Stretch"],
+      steps:["Activate glutes with bridges and clamshells.","Focus on the squeeze at the top of every rep.","Keep hips square — no rotating toward the working leg.","Stretch hip flexors and glutes at the end."],
+      mistakes:["Letting hips collapse on one side","Using momentum instead of muscle","Skipping the cool-down stretch"]
+    },
+    {
+      id:"pilates-toning", name:"Pilates: Abs · Glutes · Back",
+      tag:"Pilates", meta:["~30 min","No equipment","Abs · Glutes"],
+      yt:"FQRoS0KsQBo", source:"Lottie Murphy",
+      ytSearch:"lottie murphy pilates toning abs glutes back",
+      refLabels:["Abs","Glutes","Back"],
+      steps:["Move through targeted abs, glutes, and back rounds.","Inhale through the nose, exhale through the mouth.","Quality over quantity — slow, controlled reps.","End with a full-body stretch."],
+      mistakes:["Letting form break to finish reps","Holding your breath during effort","Skipping any of the three rounds"]
+    }
+  ],
+  zumba: [
+    {
+      id:"zumba-fullbody", name:"30-min Zumba Full Body",
+      tag:"Zumba", meta:["~30 min","Dance cardio","Full body"],
+      yt:"IBswkNF5rqQ", source:"Zumba Workout at Home",
+      ytSearch:"30 min zumba workout home full body cardio dance",
+      refLabels:["Warm","Dance","Cool"],
+      steps:["Clear a small space — no equipment, just movement.","Don't worry about the steps; keep moving however feels good.","Smile — it really does help you go longer.","Sip water between songs."],
+      mistakes:["Stopping when you miss a step — just keep moving","Forgetting to hydrate","Going too hard too fast — pace yourself"]
+    },
+    {
+      id:"zumba-tana", name:"30-min Cardio Dance Class",
+      tag:"Zumba", meta:["~30 min","Dance cardio","Cardio"],
+      yt:"Ge9qsOSafBg", source:"TaNa Zumba",
+      ytSearch:"tana zumba 30 minute cardio dance workout",
+      refLabels:["Warm","Dance","Cool"],
+      steps:["Match the tempo as best you can — fun first, perfection later.","Land softly to protect your knees.","Use your core to stabilize through hip movements.","Walk it out at the end to bring heart rate down."],
+      mistakes:["Heavy heel landings","Forgetting to engage the core","Holding tension in your shoulders"]
+    },
+    {
+      id:"zumba-strong", name:"30-min STRONG by Zumba",
+      tag:"Zumba", meta:["~30 min","Cardio + tone","Full body"],
+      yt:"QRZcZgSgSHI", source:"STRONG by Zumba (Master Trainer)",
+      ytSearch:"strong by zumba 30 minute full body cardio toning",
+      refLabels:["Warm","HIIT","Cool"],
+      steps:["This one is HIIT-style — work hard during effort bursts.","Modify by stepping instead of jumping if you need to.","Drink water between rounds.","Cool down with deep breaths and stretches."],
+      mistakes:["Skipping the warm-up","Jumping when you should be stepping (impact)","Not modifying when you need to"]
+    }
   ]
 };
 
@@ -835,12 +939,17 @@ function buildRow(ex, dow, time, num, onDone) {
 let currentTime = 'morning';
 const todayDow = new Date().getDay();
 
+const SESS_LABEL = { morning:'☀ Strength', yoga:'🧘 Yoga', pilates:'🤸 Pilates', zumba:'💃 Zumba', night:'🌙 Stretch' };
+
 function renderToday() {
   const list = $('#todayList');
   list.innerHTML = '';
-  const plan = WEEKLY[todayDow];
-  const ids = plan[currentTime];
-  const pool = EX[currentTime];
+  const pool = EX[currentTime] || [];
+  // Strength (morning) + Stretch (night) rotate by day via WEEKLY.
+  // Yoga / Pilates / Zumba show all videos in the pool every day.
+  const ids = (currentTime === 'morning' || currentTime === 'night')
+    ? (WEEKLY[todayDow][currentTime] || [])
+    : pool.map(e => e.id);
   const exercises = ids.map(id => pool.find(e => e.id === id)).filter(Boolean);
   exercises.forEach((ex, i) => {
     list.appendChild(buildRow(ex, todayDow, currentTime, i + 1, () => {
@@ -850,8 +959,7 @@ function renderToday() {
   });
   const done = getDone(todayDow, currentTime).filter(id => ids.includes(id)).length;
   const total = ids.length;
-  const lbl = currentTime === 'morning' ? '☀ Morning' : '🌙 Night';
-  $('#progressText').textContent = `${done} of ${total} done · ${lbl}`;
+  $('#progressText').textContent = `${done} of ${total} done · ${SESS_LABEL[currentTime] || currentTime}`;
   $('#progFill').style.width = (total ? (done/total)*100 : 0) + '%';
 }
 
